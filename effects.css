@@ -46,6 +46,42 @@ body::before {
   isolation: isolate;
 }
 
+.reveal {
+  opacity: 0;
+  transform: translateY(34px) scale(.965);
+  filter: blur(10px);
+  transition:
+    opacity 760ms cubic-bezier(.2,.8,.2,1),
+    transform 760ms cubic-bezier(.2,.9,.18,1),
+    filter 760ms cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.service-card.reveal,
+.project-card.reveal,
+.delivery-card.reveal,
+.logo-cloud.reveal,
+.market-grid.reveal,
+.contact-card.reveal,
+.story-card.reveal {
+  transform: translateY(42px) scale(.94);
+}
+
+.service-card.reveal.is-visible,
+.project-card.reveal.is-visible,
+.delivery-card.reveal.is-visible,
+.logo-cloud.reveal.is-visible,
+.market-grid.reveal.is-visible,
+.contact-card.reveal.is-visible,
+.story-card.reveal.is-visible {
+  transform: translateY(0) scale(1);
+}
+
 .button,
 .nav-cta,
 .service-card,
@@ -66,7 +102,6 @@ body::before {
 .delivery-card::after,
 .market-grid span::after,
 .contact-tile::after,
-.logo-cloud img::after,
 .process-rail span::after {
   content: "";
   position: absolute;
