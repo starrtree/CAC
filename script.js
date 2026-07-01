@@ -20,6 +20,32 @@ if (toggle && navLinks) {
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
+const progressBar = document.createElement('div');
+progressBar.className = 'scroll-progress';
+progressBar.setAttribute('aria-hidden', 'true');
+document.body.appendChild(progressBar);
+
+const updateScrollProgress = () => {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  document.documentElement.style.setProperty('--scroll-progress', `${Math.min(progress, 100)}%`);
+};
+
+updateScrollProgress();
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
+window.addEventListener('resize', updateScrollProgress);
+
+let cursorTicking = false;
+window.addEventListener('pointermove', (event) => {
+  if (cursorTicking) return;
+  cursorTicking = true;
+  window.requestAnimationFrame(() => {
+    document.documentElement.style.setProperty('--cursor-x', `${event.clientX}px`);
+    document.documentElement.style.setProperty('--cursor-y', `${event.clientY}px`);
+    cursorTicking = false;
+  });
+}, { passive: true });
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -30,6 +56,38 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.16 });
 
 document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+const tiltCards = document.querySelectorAll('.service-card, .project-card, .delivery-card, .market-grid span, .contact-tile');
+
+tiltCards.forEach((card) => {
+  card.classList.add('interactive-tilt');
+
+  card.addEventListener('pointermove', (event) => {
+    if (window.matchMedia('(max-width: 760px)').matches) return;
+
+    const rect = card.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const xPercent = x / rect.width;
+    const yPercent = y / rect.height;
+    const rotateX = (0.5 - yPercent) * 7;
+    const rotateY = (xPercent - 0.5) * 7;
+
+    card.style.setProperty('--tilt-x', `${rotateY}deg`);
+    card.style.setProperty('--tilt-y', `${rotateX}deg`);
+    card.style.setProperty('--spot-x', `${xPercent * 100}%`);
+    card.style.setProperty('--spot-y', `${yPercent * 100}%`);
+    card.classList.add('is-tilting');
+  });
+
+  card.addEventListener('pointerleave', () => {
+    card.classList.remove('is-tilting');
+    card.style.removeProperty('--tilt-x');
+    card.style.removeProperty('--tilt-y');
+    card.style.removeProperty('--spot-x');
+    card.style.removeProperty('--spot-y');
+  });
+});
 
 const contactForm = document.getElementById('contact-form');
 const formStatus = document.getElementById('form-status');
