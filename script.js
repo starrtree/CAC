@@ -1,22 +1,26 @@
-// Load final CAC brand accent layer after the base/effects styles.
+// Load CAC accent layers after the base/effects styles.
 const brandAccentStyles = document.createElement('link');
 brandAccentStyles.rel = 'stylesheet';
 brandAccentStyles.href = 'brand-accent.css';
 document.head.appendChild(brandAccentStyles);
 
-// Reduce accidental mobile pinch/side-gesture drift without affecting normal vertical scrolling.
+const latestFixStyles = document.createElement('link');
+latestFixStyles.rel = 'stylesheet';
+latestFixStyles.href = 'latest-fixes.css';
+document.head.appendChild(latestFixStyles);
+
+// Reduce accidental mobile pinch/side-gesture drift without blocking desktop zoom controls.
+const isTouchLikeDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
 const viewportMeta = document.querySelector('meta[name="viewport"]');
-if (viewportMeta) {
+if (isTouchLikeDevice && viewportMeta) {
   viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover');
 }
 
-document.addEventListener('gesturestart', (event) => event.preventDefault(), { passive: false });
-document.addEventListener('gesturechange', (event) => event.preventDefault(), { passive: false });
-document.addEventListener('gestureend', (event) => event.preventDefault(), { passive: false });
-
-document.addEventListener('wheel', (event) => {
-  if (event.ctrlKey) event.preventDefault();
-}, { passive: false });
+if (isTouchLikeDevice) {
+  document.addEventListener('gesturestart', (event) => event.preventDefault(), { passive: false });
+  document.addEventListener('gesturechange', (event) => event.preventDefault(), { passive: false });
+  document.addEventListener('gestureend', (event) => event.preventDefault(), { passive: false });
+}
 
 const highlightTitleWords = () => {
   const rules = [
