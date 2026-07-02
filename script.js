@@ -14,22 +14,104 @@ finalAdjustmentStyles.rel = 'stylesheet';
 finalAdjustmentStyles.href = 'final-adjustments.css';
 document.head.appendChild(finalAdjustmentStyles);
 
+const polishFixStyles = document.createElement('link');
+polishFixStyles.rel = 'stylesheet';
+polishFixStyles.href = 'site-polish-fixes.css';
+document.head.appendChild(polishFixStyles);
+
 const setupImageFallbacks = () => {
-  document.querySelectorAll('img[data-fallback]').forEach((image) => {
-    image.addEventListener('error', () => {
-      const fallback = image.dataset.fallback;
-      const alreadyTriedFallback = image.dataset.triedFallback === 'true';
+  const normalize = (src) => {
+    if (!src) return '';
+    try {
+      return decodeURIComponent(src.trim());
+    } catch {
+      return src.trim();
+    }
+  };
 
-      if (fallback && !alreadyTriedFallback) {
-        image.dataset.triedFallback = 'true';
-        image.src = fallback;
-        return;
+  const getFileName = (src) => normalize(src).split('/').pop();
+
+  const getCandidates = (image) => {
+    const current = normalize(image.getAttribute('src'));
+    const fallback = normalize(image.dataset.fallback);
+    const fileName = getFileName(current || fallback);
+    const candidates = [];
+
+    const add = (value) => {
+      const clean = normalize(value);
+      if (clean && !candidates.includes(clean)) candidates.push(clean);
+    };
+
+    add(current);
+
+    if (image.dataset.fallbacks) {
+      image.dataset.fallbacks.split('|').forEach(add);
+    }
+
+    add(fallback);
+
+    if (fileName) {
+      if (current.startsWith('assets/clients/')) {
+        add(fileName);
+        add(`brand/${fileName}`);
       }
+      if (current.startsWith('assets/story/')) {
+        add(fileName);
+        add(`brand/${fileName}`);
+      }
+      if (current.startsWith('assets/projects/')) {
+        add(fileName);
+      }
+      if (current.startsWith('brand/')) {
+        add(fileName);
+        add(`assets/brand/${fileName}`);
+      }
+    }
 
+    return candidates;
+  };
+
+  const markMissing = (image) => {
+    image.classList.add('is-missing');
+    const projectMedia = image.closest('.project-media');
+    if (projectMedia) projectMedia.classList.add('is-missing');
+  };
+
+  const tryNextCandidate = (image) => {
+    const candidates = getCandidates(image);
+    const index = Number(image.dataset.imageAttempt || 0);
+    const next = candidates[index + 1];
+
+    if (next) {
+      image.dataset.imageAttempt = String(index + 1);
+      image.classList.remove('is-missing');
       const projectMedia = image.closest('.project-media');
-      if (projectMedia) projectMedia.classList.add('is-missing');
-      image.style.display = 'none';
+      if (projectMedia) projectMedia.classList.remove('is-missing');
+      image.removeAttribute('style');
+      image.src = next;
+      return;
+    }
+
+    markMissing(image);
+  };
+
+  document.querySelectorAll('img').forEach((image) => {
+    image.dataset.imageAttempt = image.dataset.imageAttempt || '0';
+
+    image.addEventListener('error', () => tryNextCandidate(image));
+    image.addEventListener('load', () => {
+      if (image.naturalWidth > 0) {
+        image.classList.remove('is-missing');
+        const projectMedia = image.closest('.project-media');
+        if (projectMedia) projectMedia.classList.remove('is-missing');
+      }
     });
+
+    window.setTimeout(() => {
+      if (image.complete && image.naturalWidth === 0) {
+        tryNextCandidate(image);
+      }
+    }, 0);
   });
 };
 
@@ -56,10 +138,10 @@ const highlightTitleWords = () => {
     { selector: '#services h2', words: [['Commercial', 'red'], ['mechanical', 'blue']] },
     { selector: '#markets h2', words: [['Versatile', 'sage'], ['critical', 'red']] },
     { selector: '#projects h2', words: [['Projects', 'red'], ['range', 'blue']] },
-    { selector: '.client-section h2', words: [['Trusted', 'blue'], ['commercial', 'sage'], ['industrial', 'red']] },
+    { selector: '.client-section h2', words: [['Trusted', 'blue']] },
     { selector: '#story h2', words: [['engineering', 'blue'], ['1938', 'red']] },
-    { selector: '.sure-group h2', words: [['strength', 'red'], ['SURE Group', 'blue']] },
-    { selector: '.service-area h2', words: [['Regional', 'sage'], ['reach', 'red']] },
+    { selector: '.sure-group h2', words: [['SURE', 'teal']] },
+    { selector: '.service-area h2', words: [['Regional', 'red']] },
     { selector: '#careers h2', words: [['Build', 'red'], ['critical', 'sage']] },
     { selector: '#contact h2', words: [['project', 'red']] }
   ];
