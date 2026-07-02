@@ -1,33 +1,345 @@
-/* Targeted layout corrections after polish pass. */
+/* Targeted CAC brand/layout refinements. Loaded through effects.css. */
 
-/* Keep hero headline contained at normal browser zoom. */
+:root {
+  --cac-red: #AF0404;
+  --cac-blue: #283080;
+  --cac-sage: #AAAE8E;
+  --cac-light-gray: #E0E0E0;
+  --cac-slate: #5E6472;
+
+  /* Drop replacement images into the repo with these names later. Missing files fail silently as backgrounds. */
+  --hvac-backdrop-hero: url("hvac-stock-mechanical-room.jpg");
+  --hvac-backdrop-services: url("hvac-stock-rooftop-units.jpg");
+  --hvac-backdrop-projects: url("hvac-stock-piping.jpg");
+  --hvac-backdrop-contact: url("hvac-stock-technician.jpg");
+}
+
+/* Stop mobile side-drag / page-frame drifting. */
+html,
+body {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: clip !important;
+  overscroll-behavior-x: none !important;
+  touch-action: pan-y !important;
+}
+
+.site-shell,
+main,
+section,
+header,
+footer {
+  max-width: 100vw !important;
+  overflow-x: clip !important;
+}
+
+body {
+  background: #ffffff !important;
+}
+
+/* Bigger CAC logo and cleaner, more grounded nav. */
+.topbar {
+  background: var(--cac-blue) !important;
+  border-bottom: 4px solid var(--cac-red) !important;
+}
+
+.nav {
+  min-height: 132px !important;
+  background: rgba(255,255,255,.94) !important;
+  border-bottom: 1px solid rgba(94,100,114,.22) !important;
+  box-shadow: 0 12px 34px rgba(40,48,128,.10) !important;
+}
+
+.brand img {
+  width: clamp(118px, 10vw, 172px) !important;
+}
+
+.nav-links a {
+  letter-spacing: .02em !important;
+}
+
+.nav-cta,
+.button {
+  border-radius: 10px !important;
+  text-transform: uppercase !important;
+  letter-spacing: .045em !important;
+  min-height: 50px !important;
+}
+
+.nav-cta,
+.button-primary {
+  background: var(--cac-red) !important;
+  box-shadow: 0 12px 0 rgba(90,0,0,.22), 0 18px 36px rgba(175,4,4,.18) !important;
+}
+
+.button-secondary {
+  color: var(--cac-blue) !important;
+  background: var(--cac-light-gray) !important;
+  border: 1px solid rgba(40,48,128,.18) !important;
+  box-shadow: 0 10px 0 rgba(40,48,128,.10), 0 16px 34px rgba(40,48,128,.08) !important;
+}
+
+/* Stronger solid-brand section language, less red/blue gradient wash. */
+.hero {
+  min-height: calc(100vh - 132px) !important;
+  background-color: var(--cac-blue) !important;
+  background-image:
+    linear-gradient(90deg, rgba(175,4,4,.88) 0 38%, rgba(40,48,128,.94) 38% 100%),
+    var(--hvac-backdrop-hero) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.hero::before {
+  opacity: .16 !important;
+  background-image:
+    linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px) !important;
+}
+
 .hero-copy.glass-panel {
-  max-width: 920px;
-  overflow: visible;
+  max-width: 920px !important;
+  overflow: visible !important;
+  background: rgba(40,48,128,.76) !important;
+  border: 1px solid rgba(255,255,255,.34) !important;
+  border-left: 10px solid var(--cac-red) !important;
+  border-radius: 22px !important;
 }
 
 .hero h1 {
-  max-width: 820px;
-  font-size: clamp(3rem, 5.9vw, 5.85rem);
-  line-height: 0.98;
+  max-width: 820px !important;
+  font-size: clamp(3rem, 5.9vw, 5.85rem) !important;
+  line-height: 0.98 !important;
   text-wrap: balance;
 }
 
-.hero-lead {
-  max-width: 720px;
+.hero-lead { max-width: 720px !important; }
+.hero-stats dt { font-size: clamp(1.35rem, 1.7vw, 1.8rem) !important; }
+
+.hero-panel {
+  border-radius: 22px !important;
+  border: 1px solid rgba(224,224,224,.75) !important;
+  background: rgba(255,255,255,.88) !important;
 }
 
-.hero-stats dt {
-  font-size: clamp(1.35rem, 1.7vw, 1.8rem);
+.trust-band {
+  background: var(--cac-red) !important;
+  border-top: 4px solid var(--cac-blue) !important;
+  border-bottom: 4px solid var(--cac-blue) !important;
 }
 
-@media (min-width: 1280px) {
-  .hero {
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.62fr);
-  }
+.delivery-section {
+  background-color: var(--cac-blue) !important;
+  background-image:
+    linear-gradient(rgba(40,48,128,.88), rgba(40,48,128,.88)),
+    var(--hvac-backdrop-services) !important;
+  background-size: cover !important;
+  background-position: center !important;
 }
 
-/* Client logo section should match the clean TrueConcepts direction: logos floating on white, no cards. */
+.split {
+  background-color: var(--cac-light-gray) !important;
+  background-image:
+    linear-gradient(90deg, rgba(175,4,4,.96) 0 32%, rgba(224,224,224,.92) 32% 100%),
+    var(--hvac-backdrop-services) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.markets {
+  background-color: var(--cac-blue) !important;
+  background-image: none !important;
+}
+
+.projects {
+  background-color: #ffffff !important;
+  background-image:
+    linear-gradient(rgba(255,255,255,.92), rgba(255,255,255,.92)),
+    var(--hvac-backdrop-projects) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.story {
+  background: var(--cac-red) !important;
+}
+
+.sure-group {
+  background-color: var(--cac-light-gray) !important;
+  background-image:
+    linear-gradient(rgba(224,224,224,.92), rgba(224,224,224,.92)),
+    var(--hvac-backdrop-services) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.service-area {
+  background: var(--cac-blue) !important;
+}
+
+.careers {
+  background: var(--cac-red) !important;
+  border-top: 8px solid var(--cac-blue) !important;
+  border-bottom: 8px solid var(--cac-blue) !important;
+}
+
+.contact {
+  background-color: var(--cac-blue) !important;
+  background-image:
+    linear-gradient(rgba(40,48,128,.86), rgba(40,48,128,.86)),
+    var(--hvac-backdrop-contact) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.footer {
+  background: var(--cac-blue) !important;
+  border-top: 8px solid var(--cac-red) !important;
+}
+
+/* Give section titles a physical, unit-label / equipment-panel feel. */
+.section-heading {
+  position: relative !important;
+  padding: clamp(22px, 3vw, 36px) !important;
+  border: 1px solid rgba(94,100,114,.24) !important;
+  border-left: 9px solid var(--cac-red) !important;
+  border-radius: 18px !important;
+  background: rgba(255,255,255,.90) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    inset 0 -1px 0 rgba(94,100,114,.10),
+    0 18px 44px rgba(40,48,128,.12) !important;
+}
+
+.section-heading::after {
+  content: "" !important;
+  display: block !important;
+  width: clamp(90px, 18vw, 220px) !important;
+  height: 5px !important;
+  margin-top: 24px !important;
+  background: var(--cac-red) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 0 0 4px rgba(175,4,4,.10) !important;
+}
+
+.section-heading.centered::after {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.section-heading h2 {
+  color: var(--cac-red) !important;
+}
+
+.section-heading p:not(.eyebrow) {
+  color: #1d2230 !important;
+  font-weight: 500 !important;
+}
+
+.glass-panel-dark.section-heading,
+.delivery-section .section-heading,
+.markets .section-heading,
+.service-area .section-heading,
+.careers .career-copy {
+  background: rgba(40,48,128,.92) !important;
+  border: 1px solid rgba(255,255,255,.18) !important;
+  border-left: 9px solid var(--cac-sage) !important;
+  box-shadow: 0 22px 60px rgba(0,0,0,.20) !important;
+}
+
+.glass-panel-dark.section-heading h2,
+.delivery-section .section-heading h2,
+.markets .section-heading h2,
+.service-area .section-heading h2,
+.careers .career-copy h2 {
+  color: #ffffff !important;
+}
+
+.glass-panel-dark.section-heading p:not(.eyebrow),
+.delivery-section .section-heading p:not(.eyebrow),
+.markets .section-heading p:not(.eyebrow),
+.service-area .section-heading p:not(.eyebrow),
+.careers .career-copy p:not(.eyebrow) {
+  color: rgba(255,255,255,.86) !important;
+}
+
+.eyebrow {
+  width: fit-content !important;
+  padding: 7px 10px !important;
+  background: var(--cac-light-gray) !important;
+  color: var(--cac-red) !important;
+  border-left: 4px solid var(--cac-blue) !important;
+}
+
+.glass-panel-dark .eyebrow,
+.delivery-section .eyebrow,
+.markets .eyebrow,
+.service-area .eyebrow,
+.careers .eyebrow {
+  background: rgba(255,255,255,.12) !important;
+  color: #ffffff !important;
+  border-left-color: var(--cac-sage) !important;
+}
+
+/* More rigid/professional card and text structure. */
+.delivery-card,
+.service-card,
+.project-card,
+.contact-card,
+.story-card,
+.contact-tile,
+.market-grid span,
+.process-rail {
+  border-radius: 14px !important;
+  border: 1px solid rgba(94,100,114,.22) !important;
+  box-shadow: 0 16px 34px rgba(40,48,128,.10) !important;
+}
+
+.service-card,
+.project-card,
+.delivery-card {
+  background: rgba(255,255,255,.92) !important;
+  border-top: 5px solid var(--cac-blue) !important;
+}
+
+.service-card:nth-child(even),
+.project-card:nth-child(even),
+.delivery-card:nth-child(even) {
+  border-top-color: var(--cac-red) !important;
+}
+
+.card-index,
+.delivery-label,
+.project-tag {
+  color: var(--cac-red) !important;
+}
+
+.project-tag {
+  border-radius: 6px !important;
+  background: var(--cac-light-gray) !important;
+  border-left: 4px solid var(--cac-sage) !important;
+}
+
+.market-grid span {
+  background: rgba(224,224,224,.10) !important;
+  border-color: rgba(255,255,255,.30) !important;
+  border-left: 6px solid var(--cac-sage) !important;
+}
+
+.process-rail span {
+  background: #ffffff !important;
+  border-left: 1px solid rgba(94,100,114,.16) !important;
+}
+
+.process-rail span:nth-child(even) {
+  background: var(--cac-light-gray) !important;
+}
+
+.process-rail span:last-child {
+  background: var(--cac-red) !important;
+}
+
+/* Keep the clean TrueConcepts-style client logos: no cards, no shine, white background. */
 .client-section {
   background: #ffffff !important;
 }
@@ -37,23 +349,23 @@
 }
 
 .client-section .section-heading {
-  margin-bottom: 54px;
+  margin-bottom: 54px !important;
 }
 
 .logo-cloud {
-  max-width: 1360px;
-  margin: 0 auto;
-  grid-template-columns: repeat(5, minmax(120px, 1fr));
-  gap: clamp(34px, 5vw, 74px) clamp(38px, 6vw, 86px);
-  align-items: center;
-  justify-items: center;
+  max-width: 1360px !important;
+  margin: 0 auto !important;
+  grid-template-columns: repeat(5, minmax(120px, 1fr)) !important;
+  gap: clamp(34px, 5vw, 74px) clamp(38px, 6vw, 86px) !important;
+  align-items: center !important;
+  justify-items: center !important;
 }
 
 .logo-cloud img {
   width: 100% !important;
-  max-width: 190px;
-  max-height: 105px;
-  object-fit: contain;
+  max-width: 190px !important;
+  max-height: 105px !important;
+  object-fit: contain !important;
   padding: 0 !important;
   border: 0 !important;
   border-radius: 0 !important;
@@ -63,14 +375,14 @@
   -webkit-backdrop-filter: none !important;
   filter: none !important;
   transform: none !important;
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition: opacity 180ms ease, transform 180ms ease !important;
 }
 
 .logo-cloud img:hover {
   transform: translateY(-2px) !important;
   box-shadow: none !important;
   filter: none !important;
-  opacity: .88;
+  opacity: .88 !important;
 }
 
 .logo-cloud img::before,
@@ -79,29 +391,65 @@
   content: none !important;
 }
 
+@media (min-width: 1280px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.62fr) !important;
+  }
+}
+
 @media (max-width: 1120px) {
   .hero h1 {
-    max-width: 100%;
-    font-size: clamp(3rem, 9vw, 5.2rem);
+    max-width: 100% !important;
+    font-size: clamp(3rem, 9vw, 5.2rem) !important;
   }
 
   .logo-cloud {
-    grid-template-columns: repeat(3, minmax(120px, 1fr));
+    grid-template-columns: repeat(3, minmax(120px, 1fr)) !important;
   }
 }
 
 @media (max-width: 760px) {
+  .topbar {
+    padding: 8px 12px !important;
+  }
+
+  .nav {
+    min-height: 92px !important;
+  }
+
+  .brand img {
+    width: 92px !important;
+  }
+
+  .nav-toggle {
+    border-radius: 8px !important;
+  }
+
+  .hero {
+    min-height: auto !important;
+    background-image:
+      linear-gradient(rgba(40,48,128,.92), rgba(40,48,128,.92)),
+      var(--hvac-backdrop-hero) !important;
+  }
+
   .hero h1 {
-    font-size: clamp(2.55rem, 13vw, 4.2rem);
+    font-size: clamp(2.55rem, 12vw, 4rem) !important;
+  }
+
+  .hero-copy.glass-panel,
+  .section-heading,
+  .contact-card,
+  .story-card {
+    border-radius: 14px !important;
   }
 
   .logo-cloud {
-    grid-template-columns: repeat(2, minmax(110px, 1fr));
-    gap: 34px;
+    grid-template-columns: repeat(2, minmax(110px, 1fr)) !important;
+    gap: 34px !important;
   }
 
   .logo-cloud img {
-    max-width: 150px;
-    max-height: 82px;
+    max-width: 150px !important;
+    max-height: 82px !important;
   }
 }
