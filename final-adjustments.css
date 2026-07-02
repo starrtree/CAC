@@ -1,0 +1,193 @@
+/* Final requested layout refinements. Loaded after latest-fixes.css. */
+
+:root {
+  --cac-red: #AF0404;
+  --cac-blue: #283080;
+  --cac-sage: #AAAE8E;
+  --cac-light-gray: #E0E0E0;
+}
+
+/* Slimmer header, larger visual logo, nav shifted left with separator-only treatment. */
+.topbar {
+  padding-block: 6px !important;
+}
+
+.nav {
+  min-height: 96px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  justify-content: flex-start !important;
+  gap: clamp(24px, 3vw, 52px) !important;
+  overflow: visible !important;
+}
+
+.brand {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.brand img {
+  width: clamp(116px, 8.5vw, 150px) !important;
+  transform: scale(1.85) !important;
+  transform-origin: left center !important;
+}
+
+.nav-links {
+  flex: 1 1 auto !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  gap: 0 !important;
+  margin-left: clamp(48px, 6vw, 118px) !important;
+}
+
+.nav-links a:not(.nav-cta) {
+  position: relative !important;
+  padding: 12px clamp(16px, 1.7vw, 30px) !important;
+  font-size: clamp(1.08rem, 1.08vw, 1.26rem) !important;
+  color: #1c2030 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.nav-links a:not(.nav-cta)::after {
+  content: "" !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 26% !important;
+  width: 1px !important;
+  height: 48% !important;
+  background: rgba(40,48,128,.36) !important;
+  box-shadow:
+    -8px 0 18px rgba(40,48,128,.10),
+    8px 0 18px rgba(224,224,224,.72) !important;
+}
+
+.nav-links a:not(.nav-cta):hover {
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--cac-red) !important;
+}
+
+.nav-links .nav-cta {
+  margin-left: auto !important;
+  padding: 15px 30px !important;
+  border-radius: 999px !important;
+  color: #ffffff !important;
+  background: var(--cac-red) !important;
+  box-shadow: 0 18px 44px rgba(175,4,4,.24) !important;
+}
+
+/* Stretch major desktop intro cards horizontally. */
+@media (min-width: 1024px) {
+  .projects .section-heading,
+  #projects .section-heading,
+  .delivery-section .section-heading,
+  .client-section .section-heading {
+    width: min(100%, 1420px) !important;
+    max-width: 1420px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .projects .section-heading h2,
+  #projects .section-heading h2,
+  .delivery-section .section-heading h2,
+  .client-section .section-heading h2 {
+    max-width: 1240px !important;
+  }
+}
+
+/* Delivery section: main card full-width on top, DB + PS below side-by-side. */
+@media (min-width: 1024px) {
+  .delivery-section {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    align-items: stretch !important;
+    justify-items: center !important;
+    gap: 34px !important;
+  }
+
+  .delivery-section .section-heading {
+    margin-bottom: 0 !important;
+  }
+
+  .delivery-grid {
+    width: min(100%, 1420px) !important;
+    max-width: 1420px !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 22px !important;
+  }
+
+  .delivery-card {
+    min-height: 260px !important;
+  }
+}
+
+.delivery-card:first-child .delivery-label,
+.delivery-card:first-child h3 {
+  color: var(--cac-red) !important;
+}
+
+.delivery-card:first-child p {
+  color: var(--cac-blue) !important;
+  font-weight: 700 !important;
+}
+
+.delivery-card:nth-child(2) .delivery-label,
+.delivery-card:nth-child(2) h3 {
+  color: var(--cac-blue) !important;
+}
+
+.delivery-card:nth-child(2) p {
+  color: var(--cac-red) !important;
+  font-weight: 700 !important;
+}
+
+/* Story expansion readability. */
+.story-card {
+  gap: clamp(24px, 4vw, 56px) !important;
+}
+
+.story-card .story-copy {
+  display: grid !important;
+  gap: 16px !important;
+}
+
+.story-card .story-copy p {
+  margin: 0 !important;
+  color: var(--cac-light-gray) !important;
+}
+
+.story-card strong {
+  color: #ffffff !important;
+  font-weight: 900 !important;
+}
+
+@media (max-width: 760px) {
+  .nav {
+    min-height: 88px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    gap: 14px !important;
+  }
+
+  .brand img {
+    width: 94px !important;
+    transform: none !important;
+  }
+
+  .nav-links {
+    margin-left: 0 !important;
+  }
+
+  .nav-links a:not(.nav-cta) {
+    padding: 10px 0 !important;
+    font-size: 1rem !important;
+  }
+
+  .nav-links a:not(.nav-cta)::after {
+    display: none !important;
+  }
+}
