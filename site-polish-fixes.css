@@ -1,0 +1,233 @@
+/* Targeted polish fixes loaded last. */
+
+@font-face {
+  font-family: "Qaranta";
+  src: url("brand/Qaranta Bold.otf") format("opentype"), url("Qaranta Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nexa";
+  src: url("brand/Nexa-ExtraLight.ttf") format("truetype"), url("Nexa-ExtraLight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --cac-red: #AF0404;
+  --cac-blue: #283080;
+  --sure-teal: #59c7d1;
+  --sure-purple: #3f356d;
+  --cac-light-gray: #E0E0E0;
+  --ink-black: #111111;
+}
+
+/* DB / PS cards: top centered, black copy until hover. */
+.delivery-card,
+.delivery-card:first-child,
+.delivery-card:nth-child(2) {
+  justify-content: flex-start !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 10px !important;
+}
+
+.delivery-card .delivery-label {
+  margin: 0 0 2px !important;
+}
+
+.delivery-card h3 {
+  margin-bottom: 10px !important;
+}
+
+.delivery-card p,
+.delivery-card:first-child p,
+.delivery-card:nth-child(2) p {
+  color: var(--ink-black) !important;
+  font-weight: 700 !important;
+  transition: color .22s ease;
+}
+
+.delivery-card:first-child:hover p,
+.delivery-card:first-child:focus-within p {
+  color: var(--cac-red) !important;
+}
+
+.delivery-card:nth-child(2):hover p,
+.delivery-card:nth-child(2):focus-within p {
+  color: var(--cac-blue) !important;
+}
+
+/* Client heading: only Trusted should be blue. Keep the rest red. */
+.client-section .section-heading h2 {
+  color: var(--cac-red) !important;
+}
+
+.client-section .section-heading h2 .title-accent-blue {
+  color: var(--cac-blue) !important;
+}
+
+.client-section .section-heading h2 .title-accent-sage,
+.client-section .section-heading h2 .title-accent-red {
+  color: var(--cac-red) !important;
+}
+
+/* Story section redesign: full red field, visible founders art, cleaner reading flow. */
+.story {
+  background:
+    radial-gradient(circle at 80% 8%, rgba(255,255,255,.12), transparent 30rem),
+    radial-gradient(circle at 10% 30%, rgba(40,48,128,.18), transparent 24rem),
+    linear-gradient(135deg, #AF0404 0%, #9b0303 58%, #7e0202 100%) !important;
+}
+
+.story-card {
+  max-width: 1460px !important;
+}
+
+.story-intro {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 24px !important;
+  text-align: center !important;
+  align-items: center !important;
+}
+
+.story-card .eyebrow {
+  width: fit-content !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  color: #ffffff !important;
+  background: rgba(255,255,255,.12) !important;
+  border-left-color: var(--cac-sage, #AAAE8E) !important;
+}
+
+.story-card h2 {
+  max-width: 1260px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  color: #ffffff !important;
+}
+
+.founders-overlay {
+  width: min(100%, 1080px) !important;
+  min-height: clamp(190px, 24vw, 360px) !important;
+  margin: 0 auto 18px !important;
+  padding: clamp(18px, 2.5vw, 34px) !important;
+  border-top: 1px solid rgba(255,255,255,.18) !important;
+  border-bottom: 1px solid rgba(255,255,255,.18) !important;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent) !important;
+}
+
+.founders-overlay img {
+  width: min(100%, 980px) !important;
+  max-height: 340px !important;
+  opacity: 1 !important;
+  display: block !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 20px 52px rgba(0,0,0,.26)) !important;
+}
+
+.story-card .story-copy {
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  columns: 2 460px !important;
+}
+
+.story-card .story-copy p {
+  color: #ffffff !important;
+  font-size: clamp(.98rem, 1vw, 1.08rem) !important;
+  line-height: 1.72 !important;
+}
+
+.story-pills {
+  justify-content: center !important;
+}
+
+/* SURE palette emphasis. */
+.sure-group h2 .title-accent-teal,
+.sure-group h2 .title-accent-blue {
+  color: var(--sure-teal) !important;
+}
+
+.sure-group h2 {
+  color: var(--sure-purple) !important;
+}
+
+/* Areas Served: Regional accent + big pin marker. */
+.service-area .section-heading {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.service-area .section-heading h2 .title-accent-red,
+.service-area .section-heading h2 .title-accent-sage {
+  color: var(--cac-red) !important;
+}
+
+.service-area .section-heading::before {
+  content: "📍";
+  position: absolute;
+  right: clamp(22px, 4vw, 52px);
+  top: clamp(22px, 4vw, 48px);
+  font-size: clamp(3.8rem, 8vw, 8.5rem);
+  line-height: 1;
+  opacity: .16;
+  filter: drop-shadow(0 18px 35px rgba(0,0,0,.22));
+  pointer-events: none;
+}
+
+.service-area .section-heading > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Make broken images obvious in dev but not ugly in production cards. */
+.project-media.is-missing {
+  display: grid !important;
+  place-items: center !important;
+  min-height: 210px !important;
+}
+
+.project-media.is-missing::after {
+  content: "Image pending";
+  color: var(--cac-blue);
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: .72rem;
+}
+
+.logo-cloud img.is-missing,
+.sure-logo.is-missing,
+.founders-overlay img.is-missing,
+.footer img.is-missing,
+.brand img.is-missing {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .delivery-card,
+  .delivery-card:first-child,
+  .delivery-card:nth-child(2) {
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
+
+  .story-card .story-copy {
+    columns: 1 !important;
+  }
+
+  .founders-overlay {
+    min-height: 150px !important;
+    padding: 18px 0 !important;
+  }
+
+  .service-area .section-heading::before {
+    right: 12px;
+    top: 14px;
+    font-size: 4.8rem;
+  }
+}
