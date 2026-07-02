@@ -14,6 +14,27 @@ finalAdjustmentStyles.rel = 'stylesheet';
 finalAdjustmentStyles.href = 'final-adjustments.css';
 document.head.appendChild(finalAdjustmentStyles);
 
+const setupImageFallbacks = () => {
+  document.querySelectorAll('img[data-fallback]').forEach((image) => {
+    image.addEventListener('error', () => {
+      const fallback = image.dataset.fallback;
+      const alreadyTriedFallback = image.dataset.triedFallback === 'true';
+
+      if (fallback && !alreadyTriedFallback) {
+        image.dataset.triedFallback = 'true';
+        image.src = fallback;
+        return;
+      }
+
+      const projectMedia = image.closest('.project-media');
+      if (projectMedia) projectMedia.classList.add('is-missing');
+      image.style.display = 'none';
+    });
+  });
+};
+
+setupImageFallbacks();
+
 // Reduce accidental mobile pinch/side-gesture drift without blocking desktop zoom controls.
 const isTouchLikeDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
 const viewportMeta = document.querySelector('meta[name="viewport"]');
