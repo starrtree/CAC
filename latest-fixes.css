@@ -1,0 +1,249 @@
+/* Latest CAC design corrections: hero stacking, nav balance, text colors, client width. */
+
+:root {
+  --cac-red: #AF0404;
+  --cac-blue: #283080;
+  --cac-sage: #AAAE8E;
+  --cac-light-gray: #E0E0E0;
+}
+
+/* Keep body copy out of slate/pink territory. */
+body,
+.nav-links a,
+.section-heading p:not(.eyebrow),
+.service-card p,
+.project-card p,
+.delivery-card p,
+.contact-card p,
+.story-card p,
+.contact-tile strong,
+.hero-panel,
+.panel-header {
+  color: var(--cac-blue) !important;
+}
+
+.glass-panel-dark p:not(.eyebrow),
+.hero-lead,
+.hero-stats dd,
+.delivery-section p,
+.markets p,
+.service-area p,
+.careers p,
+.footer p,
+.footer a {
+  color: var(--cac-light-gray) !important;
+}
+
+/* No pink keyword accents. Keep emphasis as clean text color only. */
+.title-accent,
+.title-accent-red,
+.title-accent-blue,
+.title-accent-sage,
+.title-accent-gray {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+.title-accent-red { color: var(--cac-red) !important; }
+.title-accent-blue,
+.title-accent-sage,
+.title-accent-gray { color: var(--cac-blue) !important; }
+
+.hero h1 .title-accent-red,
+.glass-panel-dark .title-accent-red,
+.delivery-section .title-accent-red,
+.markets .title-accent-red,
+.service-area .title-accent-red,
+.careers .title-accent-red {
+  color: #ffffff !important;
+}
+
+.hero h1 .title-accent-blue,
+.hero h1 .title-accent-sage,
+.hero h1 .title-accent-gray,
+.glass-panel-dark .title-accent-blue,
+.glass-panel-dark .title-accent-sage,
+.glass-panel-dark .title-accent-gray,
+.delivery-section .title-accent-blue,
+.delivery-section .title-accent-sage,
+.delivery-section .title-accent-gray,
+.markets .title-accent-blue,
+.markets .title-accent-sage,
+.markets .title-accent-gray,
+.service-area .title-accent-blue,
+.service-area .title-accent-sage,
+.service-area .title-accent-gray,
+.careers .title-accent-blue,
+.careers .title-accent-sage,
+.careers .title-accent-gray {
+  color: var(--cac-light-gray) !important;
+}
+
+/* Bigger logo and nav shifted left / spread out across the header. */
+.nav {
+  justify-content: flex-start !important;
+  gap: clamp(36px, 6vw, 108px) !important;
+  min-height: 132px !important;
+}
+
+.brand {
+  flex: 0 0 auto !important;
+}
+
+.brand img {
+  width: clamp(132px, 10vw, 188px) !important;
+}
+
+.nav-links {
+  flex: 1 1 auto !important;
+  justify-content: flex-start !important;
+  gap: 0 !important;
+  margin-left: 0 !important;
+}
+
+.nav-links a {
+  position: relative !important;
+  padding: 14px 20px !important;
+  font-size: clamp(1.02rem, 1.05vw, 1.22rem) !important;
+  font-weight: 850 !important;
+  border-radius: 16px !important;
+  background: linear-gradient(180deg, rgba(255,255,255,.52), rgba(224,224,224,.32)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.88), 0 10px 24px rgba(40,48,128,.045) !important;
+}
+
+.nav-links a:not(.nav-cta)::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: 22%;
+  width: 1px;
+  height: 56%;
+  background: linear-gradient(180deg, transparent, rgba(40,48,128,.22), transparent);
+}
+
+.nav-links a:not(.nav-cta):hover {
+  background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(224,224,224,.55)) !important;
+  text-shadow: 0 1px 0 rgba(255,255,255,.65);
+}
+
+.nav-links .nav-cta {
+  margin-left: auto !important;
+  padding: 16px 28px !important;
+  color: #ffffff !important;
+  background: var(--cac-red) !important;
+  box-shadow: 0 18px 44px rgba(175,4,4,.26) !important;
+}
+
+/* Stack the two hero cards on desktop and stretch them horizontally. */
+@media (min-width: 1024px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) !important;
+    align-items: stretch !important;
+    justify-items: center !important;
+    gap: 34px !important;
+    padding-top: 100px !important;
+    padding-bottom: 120px !important;
+  }
+
+  .hero-copy.glass-panel,
+  .hero-panel {
+    width: min(100%, 1320px) !important;
+    max-width: 1320px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .hero-copy.glass-panel {
+    padding: clamp(36px, 4vw, 64px) !important;
+  }
+
+  .hero h1 {
+    max-width: 1120px !important;
+    font-size: clamp(4.4rem, 6.8vw, 8.1rem) !important;
+  }
+
+  .hero-lead {
+    max-width: 1050px !important;
+  }
+
+  .hero-panel {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    padding: 24px !important;
+  }
+
+  .blueprint-card {
+    min-height: 320px !important;
+  }
+
+  .blueprint-content h2 {
+    max-width: 860px !important;
+    font-size: clamp(2.8rem, 4.8vw, 5.4rem) !important;
+  }
+}
+
+/* Client Experience title/card uses desktop width instead of half-page column. */
+@media (min-width: 1024px) {
+  .client-section .section-heading {
+    width: min(100%, 1320px) !important;
+    max-width: 1320px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 64px !important;
+  }
+
+  .client-section .section-heading h2 {
+    max-width: 1200px !important;
+    font-size: clamp(3.1rem, 5.2vw, 6.4rem) !important;
+  }
+}
+
+/* Phase rail: all phases equal at rest, red/blue gradient only on hover. */
+.process-rail span,
+.process-rail span:nth-child(even),
+.process-rail span:nth-child(odd),
+.process-rail span:last-child {
+  background: linear-gradient(180deg, #ffffff, var(--cac-light-gray)) !important;
+  color: var(--cac-blue) !important;
+  border-right: 1px solid rgba(40,48,128,.16) !important;
+}
+
+.process-rail span:nth-child(even) {
+  background: linear-gradient(180deg, #f6f6f8, #dedee2) !important;
+}
+
+.process-rail span:hover,
+.process-rail span:focus-visible {
+  background: linear-gradient(135deg, var(--cac-red), var(--cac-blue)) !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 760px) {
+  .nav {
+    min-height: 92px !important;
+    gap: 16px !important;
+  }
+
+  .brand img {
+    width: 94px !important;
+  }
+
+  .nav-links a {
+    background: transparent !important;
+    box-shadow: none !important;
+    font-size: 1rem !important;
+    padding: 10px 0 !important;
+  }
+
+  .nav-links a:not(.nav-cta)::after {
+    display: none !important;
+  }
+
+  .nav-links .nav-cta {
+    margin-left: 0 !important;
+    width: fit-content;
+    padding: 12px 18px !important;
+  }
+}
