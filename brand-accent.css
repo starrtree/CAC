@@ -1,4 +1,4 @@
-/* Solid CAC brand accents and title emphasis layer. Loaded dynamically by script.js. */
+/* CAC final accent layer. Loaded dynamically by script.js after base/effects styles. */
 
 :root {
   --cac-red: #AF0404;
@@ -8,132 +8,324 @@
   --cac-slate: #5E6472;
 }
 
-/* Solid bars, not gradients. */
+/* Keep only these utility lines solid, not gradient. */
 .topbar {
   background: var(--cac-blue) !important;
   background-image: none !important;
-  border-bottom-color: var(--cac-red) !important;
+  border-bottom: 0 !important;
 }
 
 .scroll-progress {
   background: var(--cac-red) !important;
   background-image: none !important;
-  box-shadow: 0 0 0 1px rgba(175,4,4,.18), 0 6px 16px rgba(175,4,4,.22) !important;
+  box-shadow: 0 0 0 1px rgba(175,4,4,.12), 0 5px 16px rgba(175,4,4,.22) !important;
 }
 
-.nav-links a:not(.nav-cta)::before {
-  background: var(--cac-red) !important;
-  background-image: none !important;
-}
-
+.nav-links a:not(.nav-cta)::before,
 .section-heading::after {
   background: var(--cac-red) !important;
   background-image: none !important;
 }
 
-/* Title word highlighting using exact CAC palette. */
+/* Restore the smoother red/blue atmospheric backgrounds, but add more diagonal engineering lines. */
+.hero {
+  background:
+    linear-gradient(118deg, rgba(175,4,4,.94) 0%, rgba(175,4,4,.86) 34%, rgba(40,48,128,.95) 68%, rgba(17,22,66,.98) 100%),
+    radial-gradient(circle at 12% 28%, rgba(255,255,255,.28), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(255,255,255,.18), transparent 28%),
+    var(--hvac-backdrop-hero) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.hero::before,
+.capability-section::before,
+.projects::before,
+.contact::before {
+  opacity: .16 !important;
+  background-image:
+    linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.13) 1px, transparent 1px),
+    repeating-linear-gradient(126deg, rgba(255,255,255,.18) 0 1px, transparent 1px 46px) !important;
+  background-size: 54px 54px, 54px 54px, auto !important;
+}
+
+.capability-section {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(175,4,4,.18), transparent 24rem),
+    radial-gradient(circle at 82% 10%, rgba(40,48,128,.20), transparent 28rem),
+    linear-gradient(180deg, #f7f7fb, #ebeefa) !important;
+}
+
+.delivery-section {
+  background:
+    radial-gradient(circle at 10% 30%, rgba(255,255,255,.20), transparent 24rem),
+    linear-gradient(135deg, var(--cac-blue), #111642 52%, #790202) !important;
+}
+
+.split {
+  background:
+    linear-gradient(120deg, var(--cac-red) 0%, var(--cac-red) 32%, #eef0f8 32.2%, #f9f9fc 100%) !important;
+}
+
+.markets {
+  background:
+    radial-gradient(circle at 85% 18%, rgba(255,255,255,.18), transparent 24rem),
+    linear-gradient(135deg, #161b57 0%, var(--cac-blue) 46%, #810202 100%) !important;
+}
+
+.projects {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(175,4,4,.22), transparent 28rem),
+    radial-gradient(circle at 90% 16%, rgba(40,48,128,.28), transparent 30rem),
+    linear-gradient(180deg, #101438, #171b48 52%, #fafafa 52.2%, #ffffff 100%) !important;
+}
+
+.story {
+  background: linear-gradient(135deg, var(--cac-red), #7d0202 52%, var(--cac-blue)) !important;
+}
+
+.sure-group {
+  background:
+    radial-gradient(circle at 10% 40%, rgba(40,48,128,.16), transparent 24rem),
+    linear-gradient(135deg, #ffffff, #eef0f8) !important;
+}
+
+.service-area,
+.contact {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,.20), transparent 22rem),
+    linear-gradient(135deg, var(--cac-blue), #111642 56%, #790202) !important;
+}
+
+.careers {
+  background: linear-gradient(135deg, var(--cac-red), var(--cac-blue)) !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.footer {
+  background: linear-gradient(135deg, var(--cac-red), var(--cac-blue)) !important;
+  border-top: 0 !important;
+}
+
+.trust-band {
+  background: var(--cac-red) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Remove the boxed word highlights. Keep key words as colored text only. */
 .title-accent {
-  display: inline-block;
-  position: relative;
-  padding: .02em .11em .055em;
-  margin-inline: .015em;
-  border-radius: .075em;
-  line-height: .9;
-  text-shadow: none;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  display: inline !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  line-height: inherit !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  text-shadow: inherit !important;
+  box-decoration-break: initial !important;
+  -webkit-box-decoration-break: initial !important;
 }
 
-.title-accent-red {
-  color: #fff;
-  background: var(--cac-red);
-  box-shadow: .07em .07em 0 rgba(94,100,114,.28);
+.title-accent-red { color: var(--cac-red) !important; }
+.title-accent-blue { color: var(--cac-blue) !important; }
+.title-accent-sage { color: var(--cac-sage) !important; }
+.title-accent-gray { color: var(--cac-light-gray) !important; }
+
+.hero h1 .title-accent-red,
+.glass-panel-dark .title-accent-red,
+.delivery-section .title-accent-red,
+.markets .title-accent-red,
+.service-area .title-accent-red,
+.careers .title-accent-red {
+  color: #ffb8b8 !important;
+  text-shadow: 0 12px 42px rgba(0,0,0,.26) !important;
 }
 
-.title-accent-blue {
-  color: #fff;
-  background: var(--cac-blue);
-  box-shadow: .07em .07em 0 rgba(175,4,4,.28);
+.hero h1 .title-accent-blue,
+.glass-panel-dark .title-accent-blue,
+.delivery-section .title-accent-blue,
+.markets .title-accent-blue,
+.service-area .title-accent-blue,
+.careers .title-accent-blue {
+  color: var(--cac-light-gray) !important;
+  text-shadow: 0 12px 42px rgba(0,0,0,.26) !important;
 }
 
-.title-accent-sage {
-  color: var(--cac-blue);
-  background: var(--cac-sage);
-  box-shadow: .07em .07em 0 rgba(40,48,128,.20);
-}
-
-.title-accent-gray {
-  color: var(--cac-red);
-  background: var(--cac-light-gray);
-  box-shadow: .07em .07em 0 rgba(40,48,128,.16);
-}
-
-.hero h1 .title-accent {
-  padding: .025em .095em .06em;
-  border-radius: .06em;
-}
-
-.hero h1 .title-accent-blue {
-  color: var(--cac-blue);
-  background: var(--cac-light-gray);
-  border-bottom: .055em solid var(--cac-sage);
-  box-shadow: .075em .075em 0 rgba(0,0,0,.18);
-}
-
-.hero h1 .title-accent-red {
-  color: #fff;
-  background: var(--cac-red);
-  border-bottom: .055em solid var(--cac-sage);
-  box-shadow: .075em .075em 0 rgba(0,0,0,.18);
-}
-
+.hero h1 .title-accent-sage,
 .glass-panel-dark .title-accent-sage,
 .delivery-section .title-accent-sage,
 .markets .title-accent-sage,
 .service-area .title-accent-sage,
 .careers .title-accent-sage {
-  color: var(--cac-blue);
-  background: var(--cac-sage);
+  color: var(--cac-sage) !important;
 }
 
-.glass-panel-dark .title-accent-gray,
-.delivery-section .title-accent-gray,
-.markets .title-accent-gray,
-.service-area .title-accent-gray,
-.careers .title-accent-gray {
-  color: var(--cac-blue);
-  background: var(--cac-light-gray);
+/* Return to rounded/glass/slanted design language instead of rigid equipment boxes. */
+.nav-cta,
+.button {
+  border-radius: 999px !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
 }
 
-/* More disciplined text emphasis for copy blocks. */
-.hero-lead strong,
-.section-heading strong,
-.service-card strong,
-.project-card strong {
-  color: var(--cac-red);
-  font-weight: 900;
-}
-
-.section-heading p:not(.eyebrow) em {
-  color: var(--cac-blue);
-  font-style: normal;
-  font-weight: 900;
-}
-
-/* Make CTA surfaces feel solid and engineered. */
-.button,
-.nav-cta {
-  border-radius: 8px !important;
-}
-
-.button-primary,
-.nav-cta {
+.nav-cta,
+.button-primary {
   background: var(--cac-red) !important;
   background-image: none !important;
+  box-shadow: 0 18px 44px rgba(175,4,4,.26) !important;
 }
 
 .button-secondary {
-  background: var(--cac-light-gray) !important;
-  background-image: none !important;
   color: var(--cac-blue) !important;
+  background: rgba(255,255,255,.9) !important;
+  background-image: none !important;
+  border: 1px solid rgba(40,48,128,.14) !important;
+  box-shadow: 0 18px 44px rgba(7,22,47,.10) !important;
+}
+
+.hero-copy.glass-panel,
+.hero-panel,
+.glass-panel,
+.section-heading,
+.delivery-card,
+.service-card,
+.project-card,
+.contact-card,
+.story-card,
+.contact-tile,
+.market-grid span,
+.process-rail {
+  border-radius: 28px !important;
+}
+
+.section-heading {
+  border: 1px solid rgba(255,255,255,.42) !important;
+  border-left: 0 !important;
+  background: linear-gradient(135deg, rgba(255,255,255,.84), rgba(255,255,255,.56)) !important;
+  backdrop-filter: blur(22px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
+  box-shadow: 0 30px 90px rgba(17,22,66,.14) !important;
+}
+
+.section-heading::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 42%;
+  height: 8px;
+  background: var(--cac-sage);
+  transform: skewX(-24deg);
+  transform-origin: left bottom;
+  opacity: .82;
+}
+
+.glass-panel-dark.section-heading,
+.delivery-section .section-heading,
+.markets .section-heading,
+.service-area .section-heading,
+.careers .career-copy {
+  background: rgba(40,48,128,.68) !important;
+  border: 1px solid rgba(255,255,255,.24) !important;
+  border-left: 0 !important;
+  box-shadow: 0 30px 90px rgba(0,0,0,.18) !important;
+}
+
+.eyebrow {
+  border-left: 4px solid var(--cac-blue) !important;
+  background: var(--cac-light-gray) !important;
+  color: var(--cac-red) !important;
+  border-radius: 0 !important;
+}
+
+.glass-panel-dark .eyebrow,
+.delivery-section .eyebrow,
+.markets .eyebrow,
+.service-area .eyebrow,
+.careers .eyebrow {
+  background: rgba(255,255,255,.14) !important;
+  color: #ffffff !important;
+  border-left-color: var(--cac-sage) !important;
+}
+
+/* Keep the heavier 3D/shadow treatment mostly on service and project cards only. */
+.delivery-card,
+.contact-tile,
+.market-grid span,
+.process-rail {
+  box-shadow: 0 18px 48px rgba(17,22,66,.10) !important;
+  border: 1px solid rgba(255,255,255,.38) !important;
+}
+
+.service-card,
+.project-card {
+  border-radius: 24px !important;
+  border: 1px solid rgba(255,255,255,.38) !important;
+  border-top: 0 !important;
+  background: rgba(255,255,255,.76) !important;
+  box-shadow: 0 28px 78px rgba(7,10,32,.14) !important;
+}
+
+.service-card:nth-child(even),
+.project-card:nth-child(even),
+.delivery-card:nth-child(even) {
+  border-top-color: transparent !important;
+}
+
+.project-tag {
+  border-radius: 999px !important;
+  background: var(--cac-light-gray) !important;
+  border-left: 0 !important;
+  color: var(--cac-blue) !important;
+}
+
+.market-grid span {
+  background: rgba(255,255,255,.14) !important;
+  border-left: 0 !important;
+}
+
+.process-rail span {
+  background: rgba(255,255,255,.74) !important;
+  border-left: 0 !important;
+}
+
+.process-rail span:nth-child(even) {
+  background: rgba(224,224,224,.72) !important;
+}
+
+.process-rail span:last-child {
+  background: var(--cac-red) !important;
+}
+
+/* Client logos stay clean and flat. */
+.client-section {
+  background: #ffffff !important;
+}
+
+.logo-cloud img {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  filter: none !important;
+}
+
+@media (max-width: 760px) {
+  .hero-copy.glass-panel,
+  .hero-panel,
+  .glass-panel,
+  .section-heading,
+  .contact-card,
+  .story-card {
+    border-radius: 22px !important;
+  }
+
+  .hero h1 .title-accent-red,
+  .hero h1 .title-accent-blue,
+  .hero h1 .title-accent-sage {
+    text-shadow: 0 8px 28px rgba(0,0,0,.28) !important;
+  }
 }
