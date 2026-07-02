@@ -1,3 +1,17 @@
+// Reduce accidental mobile pinch/side-gesture drift without affecting normal vertical scrolling.
+const viewportMeta = document.querySelector('meta[name="viewport"]');
+if (viewportMeta) {
+  viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover');
+}
+
+document.addEventListener('gesturestart', (event) => event.preventDefault(), { passive: false });
+document.addEventListener('gesturechange', (event) => event.preventDefault(), { passive: false });
+document.addEventListener('gestureend', (event) => event.preventDefault(), { passive: false });
+
+document.addEventListener('wheel', (event) => {
+  if (event.ctrlKey) event.preventDefault();
+}, { passive: false });
+
 const toggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
 
