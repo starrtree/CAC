@@ -9,6 +9,11 @@ latestFixStyles.rel = 'stylesheet';
 latestFixStyles.href = 'latest-fixes.css';
 document.head.appendChild(latestFixStyles);
 
+const finalAdjustmentStyles = document.createElement('link');
+finalAdjustmentStyles.rel = 'stylesheet';
+finalAdjustmentStyles.href = 'final-adjustments.css';
+document.head.appendChild(finalAdjustmentStyles);
+
 // Reduce accidental mobile pinch/side-gesture drift without blocking desktop zoom controls.
 const isTouchLikeDevice = window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
 const viewportMeta = document.querySelector('meta[name="viewport"]');
