@@ -1,3 +1,9 @@
+// Load final CAC brand accent layer after the base/effects styles.
+const brandAccentStyles = document.createElement('link');
+brandAccentStyles.rel = 'stylesheet';
+brandAccentStyles.href = 'brand-accent.css';
+document.head.appendChild(brandAccentStyles);
+
 // Reduce accidental mobile pinch/side-gesture drift without affecting normal vertical scrolling.
 const viewportMeta = document.querySelector('meta[name="viewport"]');
 if (viewportMeta) {
@@ -11,6 +17,41 @@ document.addEventListener('gestureend', (event) => event.preventDefault(), { pas
 document.addEventListener('wheel', (event) => {
   if (event.ctrlKey) event.preventDefault();
 }, { passive: false });
+
+const highlightTitleWords = () => {
+  const rules = [
+    { selector: '.hero h1', words: [['Engineered', 'blue'], ['Built', 'red']] },
+    { selector: '#capabilities h2', words: [['mechanical', 'blue'], ['Every', 'sage']] },
+    { selector: '.delivery-section h2', words: [['design-build', 'sage'], ['plan & spec', 'red']] },
+    { selector: '#services h2', words: [['Commercial', 'red'], ['mechanical', 'blue']] },
+    { selector: '#markets h2', words: [['Versatile', 'sage'], ['critical', 'red']] },
+    { selector: '#projects h2', words: [['Projects', 'red'], ['range', 'blue']] },
+    { selector: '.client-section h2', words: [['Trusted', 'blue'], ['commercial', 'sage'], ['industrial', 'red']] },
+    { selector: '#story h2', words: [['engineering', 'blue'], ['1938', 'red']] },
+    { selector: '.sure-group h2', words: [['strength', 'red'], ['SURE Group', 'blue']] },
+    { selector: '.service-area h2', words: [['Regional', 'sage'], ['reach', 'red']] },
+    { selector: '#careers h2', words: [['Build', 'red'], ['critical', 'sage']] },
+    { selector: '#contact h2', words: [['project', 'red']] }
+  ];
+
+  const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+  rules.forEach(({ selector, words }) => {
+    const heading = document.querySelector(selector);
+    if (!heading || heading.dataset.titleAccented === 'true') return;
+
+    let html = heading.textContent;
+    words.forEach(([word, color]) => {
+      const expression = new RegExp(`(${escapeRegExp(word)})`, 'i');
+      html = html.replace(expression, `<span class="title-accent title-accent-${color}">$1</span>`);
+    });
+
+    heading.innerHTML = html;
+    heading.dataset.titleAccented = 'true';
+  });
+};
+
+highlightTitleWords();
 
 const toggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
