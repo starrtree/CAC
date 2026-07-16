@@ -1,0 +1,207 @@
+/* Final layout corrections based on desktop review screenshots. */
+
+:root {
+  --cac-red: #AF0404;
+  --cac-blue: #283080;
+  --cac-sage: #AAAE8E;
+  --cac-light-gray: #E0E0E0;
+  --cac-ink: #151821;
+}
+
+/* START-TO-FINISH CAPABILITY
+   Keep every lifecycle block visible. The previous scroll-linked clip-path made
+   the rail look cut off while the section was in view. */
+.capability-section .process-rail {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+  clip-path: none !important;
+  overflow: hidden !important;
+  animation: none !important;
+  filter: none !important;
+  transform: none !important;
+  translate: none !important;
+  scale: 1 !important;
+}
+
+.capability-section .process-rail span {
+  min-width: 0 !important;
+  width: auto !important;
+  overflow: visible !important;
+  white-space: normal !important;
+  text-align: center !important;
+  line-height: 1.15 !important;
+}
+
+@media (min-width: 1100px) {
+  .capability-section {
+    display: block !important;
+  }
+
+  .capability-section .section-heading {
+    margin-inline: auto !important;
+  }
+
+  .capability-section .process-rail {
+    margin-top: clamp(36px, 4vw, 58px) !important;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1099px) {
+  .capability-section .process-rail {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .capability-section .process-rail span:nth-child(4n) {
+    border-right: 0 !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .capability-section .process-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    border-radius: 20px !important;
+  }
+
+  .capability-section .process-rail span {
+    min-height: 74px !important;
+    padding: 14px 10px !important;
+    font-size: .68rem !important;
+  }
+
+  .capability-section .process-rail span:nth-child(2n) {
+    border-right: 0 !important;
+  }
+}
+
+/* FLEXIBLE DELIVERY
+   Let only the hovered/focused DB or PS card grow. The grid row may become
+   taller, but the sibling now keeps its own intrinsic height instead of stretching. */
+.delivery-grid {
+  align-items: start !important;
+  grid-auto-rows: auto !important;
+}
+
+.delivery-card.delivery-collapsible {
+  align-self: start !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 761px) {
+  .delivery-card.delivery-collapsible:not(:hover):not(:focus-within) {
+    align-self: start !important;
+    height: auto !important;
+  }
+
+  .delivery-card.delivery-collapsible:hover,
+  .delivery-card.delivery-collapsible:focus-within {
+    align-self: start !important;
+    height: auto !important;
+  }
+}
+
+/* MARKETS SERVED
+   Center labels within the usable body of each opposing parallelogram rather
+   than pinning them toward the outside edges. */
+#markets .market-grid span {
+  display: grid !important;
+  place-items: center !important;
+  justify-content: center !important;
+  align-content: center !important;
+  text-align: center !important;
+  line-height: 1.15 !important;
+}
+
+@media (min-width: 1100px) {
+  #markets .market-grid span:nth-child(-n+5),
+  #markets .market-grid span:nth-child(n+6) {
+    justify-content: center !important;
+    text-align: center !important;
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+  }
+
+  #markets .market-grid span:nth-child(-n+5) {
+    padding-left: 38px !important;
+    padding-right: 52px !important;
+  }
+
+  #markets .market-grid span:nth-child(n+6) {
+    padding-left: 52px !important;
+    padding-right: 38px !important;
+  }
+}
+
+@media (max-width: 1099px) {
+  #markets .market-grid span:nth-child(odd),
+  #markets .market-grid span:nth-child(even) {
+    display: grid !important;
+    place-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  #markets .market-grid span:nth-child(odd) {
+    padding-left: 34px !important;
+    padding-right: 48px !important;
+  }
+
+  #markets .market-grid span:nth-child(even) {
+    padding-left: 48px !important;
+    padding-right: 34px !important;
+  }
+}
+
+/* STORY / FOUNDERS
+   Create a deliberate white portrait card over the red story background. */
+.story .founders-overlay {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 620px !important;
+  margin: clamp(12px, 2vw, 24px) auto !important;
+  padding: clamp(24px, 3vw, 42px) !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255,255,255,.9) !important;
+  border-radius: clamp(24px, 2.3vw, 34px) !important;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.99), rgba(245,246,250,.96)) !important;
+  box-shadow:
+    0 28px 80px rgba(54,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,1) !important;
+  backdrop-filter: blur(18px) saturate(115%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(115%) !important;
+}
+
+.story .founders-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(135deg, rgba(175,4,4,.045), transparent 45%),
+    linear-gradient(rgba(40,48,128,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(40,48,128,.04) 1px, transparent 1px);
+  background-size: auto, 30px 30px, 30px 30px;
+}
+
+.story .founders-overlay img {
+  position: relative !important;
+  z-index: 1 !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: 360px !important;
+  margin: 0 auto !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  filter: contrast(1.08) saturate(.8) !important;
+}
+
+@media (max-width: 760px) {
+  .story .founders-overlay {
+    padding: 20px !important;
+    border-radius: 24px !important;
+  }
+}
