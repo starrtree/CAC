@@ -1,0 +1,315 @@
+/* CSS-only scroll layer. Reverses automatically when the user scrolls upward. */
+
+/* Annotated header treatment: alternating red and blue diagonal engineering lines. */
+.nav::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .31;
+  background-image:
+    repeating-linear-gradient(122deg,
+      transparent 0 108px,
+      rgba(175,4,4,.92) 108px 110px,
+      transparent 110px 220px),
+    repeating-linear-gradient(58deg,
+      transparent 0 136px,
+      rgba(40,48,128,.88) 136px 138px,
+      transparent 138px 276px);
+  background-size: 100% 100%;
+  mask-image: linear-gradient(90deg, black, rgba(0,0,0,.62) 50%, black);
+  -webkit-mask-image: linear-gradient(90deg, black, rgba(0,0,0,.62) 50%, black);
+}
+
+.nav > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Annotated hero treatment: low-opacity real project image behind the gradient and grid. */
+.hero::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -10% -5% -12% !important;
+  z-index: 0 !important;
+  opacity: .25 !important;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, rgba(175,4,4,.62), rgba(175,4,4,.16) 42%, rgba(40,48,128,.34) 75%, rgba(17,22,66,.54)),
+    linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px),
+    url("assets/projects/50-E-Rivercenter-Blvd-Covington-KY.jpg") !important;
+  background-size: cover, 54px 54px, 54px 54px, cover !important;
+  background-position: center, center, center, left 46% !important;
+  background-repeat: no-repeat, repeat, repeat, no-repeat !important;
+  filter: grayscale(.76) contrast(1.08) saturate(.72);
+  mask-image: linear-gradient(90deg, black 0%, rgba(0,0,0,.88) 48%, rgba(0,0,0,.35) 100%) !important;
+  -webkit-mask-image: linear-gradient(90deg, black 0%, rgba(0,0,0,.88) 48%, rgba(0,0,0,.35) 100%) !important;
+  transform: scale(1.12);
+  transform-origin: center;
+}
+
+.hero-copy,
+.hero-panel {
+  z-index: 2 !important;
+}
+
+/* Keep the centered hero headline intentional and readable. */
+.hero-copy {
+  text-align: center !important;
+  align-items: center !important;
+  margin-inline: auto !important;
+}
+
+.hero-copy h1 {
+  max-width: 12ch !important;
+  margin-inline: auto !important;
+  font-size: clamp(3rem, 5.35vw, 6.2rem) !important;
+  line-height: .98 !important;
+  text-align: center !important;
+  text-wrap: balance;
+}
+
+.hero-copy .hero-lead,
+.hero-copy .eyebrow {
+  margin-inline: auto !important;
+  text-align: center !important;
+}
+
+.hero-actions,
+.hero-stats {
+  justify-content: center !important;
+}
+
+/* Scroll-linked motion supported by current Chrome/Safari/Edge. */
+@supports (animation-timeline: scroll()) {
+  .nav::after {
+    animation: headerBlueprintMotion linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  .hero::before {
+    animation: heroProjectParallax linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0% 24%;
+  }
+
+  .hero-copy {
+    animation: heroCopyScroll linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0% 13%;
+    transform-origin: center top;
+  }
+
+  .hero-panel {
+    animation: heroPanelScroll linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0% 18%;
+  }
+
+  .hero-orb.orb-one {
+    animation: heroOrbOne linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0% 22%;
+  }
+
+  .hero-orb.orb-two {
+    animation: heroOrbTwo linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0% 22%;
+  }
+
+  @keyframes headerBlueprintMotion {
+    from { background-position: -7vw 0, 7vw 0; opacity: .22; }
+    to { background-position: 18vw 0, -14vw 0; opacity: .43; }
+  }
+
+  @keyframes heroProjectParallax {
+    from { transform: translateY(-2%) scale(1.08); background-position: center, center, center, left 54%; }
+    to { transform: translateY(11%) scale(1.2); background-position: center, 80px 80px, -80px -80px, left 35%; }
+  }
+
+  @keyframes heroCopyScroll {
+    0% { translate: 0 0; scale: 1; opacity: 1; }
+    55% { translate: 0 -16px; scale: .985; opacity: .98; }
+    100% { translate: 0 -74px; scale: .94; opacity: .64; }
+  }
+
+  @keyframes heroPanelScroll {
+    0% { translate: 0 0; rotate: 0deg; scale: 1; opacity: 1; }
+    100% { translate: 0 -42px; rotate: .7deg; scale: .965; opacity: .72; }
+  }
+
+  @keyframes heroOrbOne {
+    from { translate: 0 0; scale: .88; }
+    to { translate: -110px 120px; scale: 1.25; }
+  }
+
+  @keyframes heroOrbTwo {
+    from { translate: 0 0; scale: 1; }
+    to { translate: 170px -90px; scale: .76; }
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .section-heading,
+  .story-card,
+  .contact-card,
+  .sure-group > *,
+  .career-copy,
+  .careers > .button {
+    animation: sectionCardDepth linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% cover 43%;
+  }
+
+  .service-card,
+  .delivery-card,
+  .project-card,
+  .market-grid span,
+  .contact-tile {
+    animation: cardRiseScroll linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% cover 34%;
+  }
+
+  .service-card:nth-child(odd),
+  .project-card:nth-child(odd),
+  .market-grid span:nth-child(odd) {
+    animation-name: cardRiseFromLeft;
+  }
+
+  .service-card:nth-child(even),
+  .project-card:nth-child(even),
+  .market-grid span:nth-child(even) {
+    animation-name: cardRiseFromRight;
+  }
+
+  .logo-cloud img {
+    animation: logoPopScroll linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% cover 32%;
+  }
+
+  .founders-overlay img {
+    animation: foundersParallax linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% exit 100%;
+  }
+
+  .process-rail {
+    animation: processCharge linear both;
+    animation-timeline: view(block);
+    animation-range: entry 5% cover 70%;
+    transform-origin: left center;
+  }
+
+  .blueprint-card {
+    animation: blueprintDepth linear both;
+    animation-timeline: view(block);
+    animation-range: entry 0% exit 100%;
+  }
+
+  @keyframes sectionCardDepth {
+    0% { translate: 0 68px; scale: .92; opacity: .18; filter: blur(10px); }
+    58% { translate: 0 0; scale: 1; opacity: 1; filter: blur(0); }
+    100% { translate: 0 0; scale: 1; opacity: 1; filter: blur(0); }
+  }
+
+  @keyframes cardRiseScroll {
+    0% { translate: 0 70px; rotate: 1.6deg; scale: .9; opacity: .1; filter: blur(8px); }
+    70%, 100% { translate: 0 0; rotate: 0deg; scale: 1; opacity: 1; filter: blur(0); }
+  }
+
+  @keyframes cardRiseFromLeft {
+    0% { translate: -62px 64px; rotate: -2deg; scale: .9; opacity: .08; filter: blur(8px); }
+    70%, 100% { translate: 0 0; rotate: 0deg; scale: 1; opacity: 1; filter: blur(0); }
+  }
+
+  @keyframes cardRiseFromRight {
+    0% { translate: 62px 64px; rotate: 2deg; scale: .9; opacity: .08; filter: blur(8px); }
+    70%, 100% { translate: 0 0; rotate: 0deg; scale: 1; opacity: 1; filter: blur(0); }
+  }
+
+  @keyframes logoPopScroll {
+    0% { translate: 0 36px; scale: .66; opacity: 0; filter: blur(6px); }
+    72%, 100% { translate: 0 0; scale: 1; opacity: 1; filter: blur(0); }
+  }
+
+  @keyframes foundersParallax {
+    0% { translate: 0 70px; scale: .92; opacity: .22; }
+    45% { translate: 0 0; scale: 1; opacity: 1; }
+    100% { translate: 0 -48px; scale: 1.035; opacity: .72; }
+  }
+
+  @keyframes processCharge {
+    0% { clip-path: inset(0 82% 0 0 round 999px); scale: .96; filter: saturate(.72); }
+    100% { clip-path: inset(0 0 0 0 round 999px); scale: 1; filter: saturate(1.16); }
+  }
+
+  @keyframes blueprintDepth {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 110px 110px, -110px -110px; }
+  }
+}
+
+@media (max-width: 760px) {
+  .nav::after {
+    opacity: .15;
+    background-image:
+      repeating-linear-gradient(122deg, transparent 0 70px, rgba(175,4,4,.72) 70px 72px, transparent 72px 144px),
+      repeating-linear-gradient(58deg, transparent 0 92px, rgba(40,48,128,.68) 92px 94px, transparent 94px 186px);
+  }
+
+  .hero::before {
+    inset: -4% -40% -8% -38% !important;
+    opacity: .2 !important;
+    background-position: center, center, center, 34% center !important;
+  }
+
+  .hero-copy h1 {
+    max-width: 10.5ch !important;
+    font-size: clamp(2.8rem, 14vw, 4.55rem) !important;
+  }
+
+  @supports (animation-timeline: view()) {
+    .service-card,
+    .delivery-card,
+    .project-card,
+    .market-grid span,
+    .contact-tile {
+      animation-name: cardRiseScroll !important;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav::after,
+  .hero::before,
+  .hero-copy,
+  .hero-panel,
+  .hero-orb,
+  .section-heading,
+  .story-card,
+  .contact-card,
+  .sure-group > *,
+  .career-copy,
+  .careers > .button,
+  .service-card,
+  .delivery-card,
+  .project-card,
+  .market-grid span,
+  .contact-tile,
+  .logo-cloud img,
+  .founders-overlay img,
+  .process-rail,
+  .blueprint-card {
+    animation: none !important;
+    translate: none !important;
+    rotate: none !important;
+    scale: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+}
