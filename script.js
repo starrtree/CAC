@@ -19,6 +19,11 @@ polishFixStyles.rel = 'stylesheet';
 polishFixStyles.href = 'site-polish-fixes.css';
 document.head.appendChild(polishFixStyles);
 
+const interactiveSectionStyles = document.createElement('link');
+interactiveSectionStyles.rel = 'stylesheet';
+interactiveSectionStyles.href = 'interactive-sections.css';
+document.head.appendChild(interactiveSectionStyles);
+
 const setupImageFallbacks = () => {
   const normalize = (src) => {
     if (!src) return '';
@@ -164,6 +169,146 @@ const highlightTitleWords = () => {
 };
 
 highlightTitleWords();
+
+const setupDeliveryAccordions = () => {
+  document.querySelectorAll('.delivery-card').forEach((card, index) => {
+    if (card.dataset.accordionReady === 'true') return;
+
+    const label = card.querySelector('.delivery-label');
+    const heading = card.querySelector('h3');
+    const description = card.querySelector('p');
+    if (!label || !heading || !description) return;
+
+    const detailsId = `delivery-details-${index + 1}`;
+    const summary = document.createElement('div');
+    summary.className = 'delivery-summary';
+
+    const toggleButton = document.createElement('button');
+    toggleButton.type = 'button';
+    toggleButton.className = 'delivery-toggle';
+    toggleButton.setAttribute('aria-expanded', 'false');
+    toggleButton.setAttribute('aria-controls', detailsId);
+    toggleButton.setAttribute('aria-label', `Expand ${heading.textContent.trim()} details`);
+    toggleButton.innerHTML = '<span class="delivery-toggle-icon" aria-hidden="true">+</span>';
+
+    const details = document.createElement('div');
+    details.className = 'delivery-details';
+    details.id = detailsId;
+
+    card.insertBefore(summary, label);
+    summary.append(label, heading, toggleButton);
+    details.append(description);
+    card.append(details);
+    card.classList.add('delivery-collapsible');
+    card.dataset.accordionReady = 'true';
+
+    toggleButton.addEventListener('click', () => {
+      const willOpen = !card.classList.contains('is-expanded');
+      card.classList.toggle('is-expanded', willOpen);
+      toggleButton.setAttribute('aria-expanded', String(willOpen));
+      toggleButton.setAttribute('aria-label', `${willOpen ? 'Collapse' : 'Expand'} ${heading.textContent.trim()} details`);
+    });
+  });
+};
+
+const setupCapabilityTabs = () => {
+  const strip = document.querySelector('.capability-strip');
+  if (!strip || strip.dataset.tabsReady === 'true') return;
+
+  const descriptions = {
+    Engineering: 'In-house engineering support, system analysis, value engineering, permitting coordination, and practical design decisions rooted in constructability.',
+    Coordination: 'BIM coordination, trade alignment, schedule awareness, clash reduction, and organized communication from preconstruction through closeout.',
+    'Field Ops': 'Installation, commissioning, troubleshooting, service, preventative maintenance, repair, replacement, and long-term system support.'
+  };
+
+  const panel = document.createElement('div');
+  panel.className = 'capability-tab-panel';
+  panel.id = 'capability-tab-panel';
+  panel.setAttribute('role', 'region');
+  panel.setAttribute('aria-live', 'polite');
+
+  const labels = Array.from(strip.querySelectorAll('span')).map((span) => span.textContent.trim());
+  strip.textContent = '';
+  strip.classList.add('capability-tabs');
+  strip.dataset.tabsReady = 'true';
+
+  labels.forEach((label) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'capability-tab';
+    button.textContent = label;
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-controls', panel.id);
+
+    button.addEventListener('click', () => {
+      const wasActive = button.classList.contains('is-active');
+
+      strip.querySelectorAll('.capability-tab').forEach((tab) => {
+        tab.classList.remove('is-active');
+        tab.setAttribute('aria-expanded', 'false');
+      });
+
+      if (wasActive) {
+        panel.classList.remove('is-open');
+        panel.innerHTML = '';
+        return;
+      }
+
+      button.classList.add('is-active');
+      button.setAttribute('aria-expanded', 'true');
+      panel.innerHTML = `<strong>${label}</strong><p>${descriptions[label] || ''}</p>`;
+      panel.classList.add('is-open');
+    });
+
+    strip.append(button);
+  });
+
+  strip.insertAdjacentElement('afterend', panel);
+};
+
+const setupProjectExpansion = () => {
+  const grid = document.querySelector('.project-grid');
+  if (!grid || grid.dataset.expansionReady === 'true') return;
+
+  const cards = Array.from(grid.querySelectorAll('.project-card'));
+  const visibleCount = 5;
+  if (cards.length <= visibleCount) return;
+
+  const hiddenCount = cards.length - visibleCount;
+  cards.slice(visibleCount).forEach((card) => card.classList.add('project-extra'));
+  grid.classList.add('is-collapsed');
+  grid.dataset.expansionReady = 'true';
+
+  const buttonWrap = document.createElement('div');
+  buttonWrap.className = 'projects-toggle-wrap';
+
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'projects-toggle';
+  button.setAttribute('aria-expanded', 'false');
+  button.innerHTML = `<span class="projects-toggle-label">View ${hiddenCount} More Projects</span><span class="projects-toggle-icon" aria-hidden="true">+</span>`;
+
+  button.addEventListener('click', () => {
+    const willExpand = !grid.classList.contains('is-expanded');
+    grid.classList.toggle('is-expanded', willExpand);
+    grid.classList.toggle('is-collapsed', !willExpand);
+    button.setAttribute('aria-expanded', String(willExpand));
+    button.querySelector('.projects-toggle-label').textContent = willExpand ? 'Show Fewer Projects' : `View ${hiddenCount} More Projects`;
+
+    if (willExpand) {
+      cards.slice(visibleCount).forEach((card) => card.classList.add('is-visible'));
+    } else {
+      document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+
+  buttonWrap.append(button);
+  grid.insertAdjacentElement('afterend', buttonWrap);
+};
+
+setupDeliveryAccordions();
+setupCapabilityTabs();
+setupProjectExpansion();
 
 const toggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
