@@ -1,0 +1,499 @@
+/* Interactive section layouts and responsive typography. Loaded last by script.js. */
+
+:root {
+  --cac-red: #AF0404;
+  --cac-blue: #283080;
+  --cac-sage: #AAAE8E;
+  --cac-light-gray: #E0E0E0;
+  --cac-ink: #151821;
+  --cac-radius: 30px;
+}
+
+/* Long title cards: lighter supporting words, bold brand-font keywords only. */
+#services .section-heading h2,
+#markets .section-heading h2,
+#projects .section-heading h2,
+.client-section .section-heading h2,
+.service-area .section-heading h2,
+.careers h2 {
+  font-family: var(--body, "Inter", Arial, sans-serif) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.045em !important;
+  line-height: 1.03 !important;
+  text-wrap: balance;
+}
+
+#services .section-heading h2 .title-accent,
+#markets .section-heading h2 .title-accent,
+#projects .section-heading h2 .title-accent,
+.client-section .section-heading h2 .title-accent,
+.service-area .section-heading h2 .title-accent,
+.careers h2 .title-accent {
+  font-family: var(--display, "Qaranta", "Arial Black", sans-serif) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.015em !important;
+}
+
+/* Services: stop the sticky intro card from becoming a giant broken word column. */
+#services .section-heading {
+  max-width: none !important;
+  min-width: 0 !important;
+  align-self: start;
+  padding: clamp(30px, 3vw, 46px) !important;
+  border-radius: var(--cac-radius) !important;
+  overflow: hidden;
+}
+
+#services .section-heading h2 {
+  max-width: 13ch !important;
+  margin-bottom: 20px !important;
+  font-size: clamp(2.55rem, 3.55vw, 4.75rem) !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
+  color: var(--cac-light-gray) !important;
+}
+
+#services .section-heading h2 .title-accent {
+  color: #ffffff !important;
+}
+
+#services .section-heading p:not(.eyebrow) {
+  max-width: 34rem;
+  margin-bottom: 0;
+  font-size: clamp(.98rem, 1vw, 1.08rem) !important;
+}
+
+@media (min-width: 1100px) {
+  #services.split {
+    grid-template-columns: minmax(360px, .72fr) minmax(0, 1.55fr) !important;
+    gap: clamp(28px, 3.3vw, 60px) !important;
+  }
+
+  #services .sticky-heading {
+    top: 116px !important;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1099px) {
+  #services.split {
+    grid-template-columns: 1fr !important;
+  }
+
+  #services .sticky-heading {
+    position: relative !important;
+    top: auto !important;
+  }
+
+  #services .section-heading h2 {
+    max-width: 18ch !important;
+  }
+}
+
+/* Markets: title in the center, five wing cards on each side on desktop. */
+@media (min-width: 1100px) {
+  #markets.markets {
+    display: grid !important;
+    grid-template-columns: minmax(220px, .68fr) minmax(560px, 1.65fr) minmax(220px, .68fr) !important;
+    grid-template-rows: repeat(5, minmax(72px, auto)) !important;
+    gap: 16px clamp(20px, 2.2vw, 42px) !important;
+    align-items: center !important;
+    padding-inline: clamp(24px, 3.2vw, 64px) !important;
+  }
+
+  #markets .section-heading.centered {
+    grid-column: 2 !important;
+    grid-row: 1 / 6 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: clamp(34px, 4vw, 62px) clamp(30px, 4vw, 68px) !important;
+    border: 1px solid rgba(255,255,255,.24);
+    border-radius: 30px;
+    background: rgba(40,48,128,.72);
+    box-shadow: 0 30px 90px rgba(7,10,32,.25);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+  }
+
+  #markets .section-heading h2 {
+    max-width: 10.5ch;
+    margin-inline: auto;
+    font-size: clamp(3.05rem, 4.65vw, 6rem) !important;
+    color: var(--cac-light-gray) !important;
+  }
+
+  #markets .section-heading h2 .title-accent {
+    color: #ffffff !important;
+  }
+
+  #markets .section-heading p:not(.eyebrow) {
+    max-width: 58rem;
+    margin-inline: auto;
+  }
+
+  #markets .market-grid {
+    display: contents !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  #markets .market-grid span {
+    width: 100% !important;
+    min-height: 72px !important;
+    border: 1px solid rgba(255,255,255,.28) !important;
+    border-radius: 0 !important;
+    background: rgba(255,255,255,.13) !important;
+    box-shadow: 0 18px 42px rgba(0,0,0,.14) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    font-size: clamp(.82rem, .9vw, 1rem);
+    transition: transform .22s ease, background .22s ease, box-shadow .22s ease;
+  }
+
+  #markets .market-grid span:nth-child(-n+5) {
+    grid-column: 1 !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    padding: 18px 34px 18px 24px !important;
+    clip-path: polygon(0 0, 88% 0, 100% 50%, 88% 100%, 0 100%, 7% 50%);
+  }
+
+  #markets .market-grid span:nth-child(n+6) {
+    grid-column: 3 !important;
+    justify-content: flex-end !important;
+    text-align: right !important;
+    padding: 18px 24px 18px 34px !important;
+    clip-path: polygon(12% 0, 100% 0, 93% 50%, 100% 100%, 12% 100%, 0 50%);
+  }
+
+  #markets .market-grid span:nth-child(1),
+  #markets .market-grid span:nth-child(6) { grid-row: 1 !important; }
+  #markets .market-grid span:nth-child(2),
+  #markets .market-grid span:nth-child(7) { grid-row: 2 !important; }
+  #markets .market-grid span:nth-child(3),
+  #markets .market-grid span:nth-child(8) { grid-row: 3 !important; }
+  #markets .market-grid span:nth-child(4),
+  #markets .market-grid span:nth-child(9) { grid-row: 4 !important; }
+  #markets .market-grid span:nth-child(5),
+  #markets .market-grid span:nth-child(10) { grid-row: 5 !important; }
+
+  #markets .market-grid span:hover {
+    transform: translateY(-3px) scale(1.025) !important;
+    background: rgba(255,255,255,.22) !important;
+    box-shadow: 0 24px 60px rgba(0,0,0,.22) !important;
+  }
+}
+
+/* Mobile market cards remain below the title and alternate left/right jets. */
+@media (max-width: 1099px) {
+  #markets .section-heading h2 {
+    font-size: clamp(2.45rem, 9vw, 4.75rem) !important;
+    color: var(--cac-light-gray) !important;
+  }
+
+  #markets .section-heading h2 .title-accent {
+    color: #ffffff !important;
+  }
+
+  #markets .market-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  #markets .market-grid span {
+    width: 94% !important;
+    min-height: 68px !important;
+    border-radius: 0 !important;
+    padding: 17px 30px !important;
+  }
+
+  #markets .market-grid span:nth-child(odd) {
+    justify-self: start;
+    text-align: left;
+    clip-path: polygon(0 0, 88% 0, 100% 50%, 88% 100%, 0 100%, 6% 50%);
+  }
+
+  #markets .market-grid span:nth-child(even) {
+    justify-self: end;
+    text-align: right;
+    clip-path: polygon(12% 0, 100% 0, 94% 50%, 100% 100%, 12% 100%, 0 50%);
+  }
+}
+
+/* Flexible delivery collapsible cards. */
+.delivery-card.delivery-collapsible {
+  min-height: 0 !important;
+  padding: clamp(22px, 2.4vw, 34px) !important;
+  display: block !important;
+  text-align: left !important;
+}
+
+.delivery-summary {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(14px, 2vw, 24px);
+}
+
+.delivery-summary .delivery-label {
+  margin: 0 !important;
+  font-size: clamp(2.4rem, 4vw, 4rem) !important;
+}
+
+.delivery-summary h3 {
+  margin: 0 !important;
+  font-size: clamp(1.6rem, 2.4vw, 2.5rem) !important;
+}
+
+.delivery-toggle {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(40,48,128,.18);
+  border-radius: 999px;
+  background: rgba(255,255,255,.76);
+  color: var(--cac-blue);
+  font: 900 1.65rem/1 var(--body, "Inter", Arial, sans-serif);
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(17,22,66,.10);
+  transition: transform .22s ease, background .22s ease, color .22s ease;
+}
+
+.delivery-toggle:hover,
+.delivery-toggle:focus-visible {
+  transform: translateY(-2px);
+  background: var(--cac-blue);
+  color: #fff;
+}
+
+.delivery-toggle-icon {
+  display: block;
+  transition: transform .25s ease;
+}
+
+.delivery-card.is-expanded .delivery-toggle-icon {
+  transform: rotate(45deg);
+}
+
+.delivery-details {
+  max-height: 0;
+  margin-top: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .38s ease, opacity .25s ease, margin-top .3s ease;
+}
+
+.delivery-card.is-expanded .delivery-details {
+  max-height: 320px;
+  margin-top: 22px;
+  opacity: 1;
+}
+
+.delivery-details p {
+  margin: 0 !important;
+  color: var(--cac-ink) !important;
+  line-height: 1.66;
+}
+
+.delivery-card:first-child.is-expanded .delivery-details p,
+.delivery-card:first-child:hover .delivery-details p {
+  color: var(--cac-red) !important;
+}
+
+.delivery-card:nth-child(2).is-expanded .delivery-details p,
+.delivery-card:nth-child(2):hover .delivery-details p {
+  color: var(--cac-blue) !important;
+}
+
+/* One Coordinated Team tabs. */
+.capability-strip.capability-tabs {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+
+.capability-tab {
+  min-height: 48px;
+  padding: 12px 10px;
+  border: 1px solid rgba(40,48,128,.12);
+  border-radius: 999px;
+  background: rgba(255,255,255,.84);
+  color: var(--cac-blue);
+  font: 900 .82rem/1.15 var(--body, "Inter", Arial, sans-serif);
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, color .2s ease;
+}
+
+.capability-tab:hover,
+.capability-tab:focus-visible,
+.capability-tab.is-active {
+  transform: translateY(-2px);
+  color: #fff;
+  background: linear-gradient(135deg, var(--cac-red), var(--cac-blue));
+}
+
+.capability-tab-panel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  border-radius: 18px;
+  background: rgba(255,255,255,.86);
+  color: var(--cac-blue);
+  transition: max-height .35s ease, opacity .25s ease, margin-top .25s ease, padding .25s ease;
+}
+
+.capability-tab-panel.is-open {
+  max-height: 180px;
+  margin-top: 12px;
+  padding: 18px 20px;
+  opacity: 1;
+}
+
+.capability-tab-panel strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--cac-red);
+}
+
+.capability-tab-panel p {
+  margin: 0;
+  color: var(--cac-blue) !important;
+  line-height: 1.55;
+}
+
+/* Projects: show five first, then expand on demand. */
+.project-card.project-extra {
+  display: none !important;
+}
+
+.project-grid.is-expanded .project-card.project-extra {
+  display: flex !important;
+}
+
+.projects-toggle-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  margin-top: 34px;
+}
+
+.projects-toggle {
+  min-height: 52px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255,255,255,.34);
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--cac-red), var(--cac-blue));
+  color: #fff;
+  font: 900 .9rem/1 var(--body, "Inter", Arial, sans-serif);
+  cursor: pointer;
+  box-shadow: 0 20px 48px rgba(17,22,66,.20);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.projects-toggle:hover,
+.projects-toggle:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 26px 64px rgba(17,22,66,.28);
+}
+
+.projects-toggle-icon {
+  font-size: 1.35rem;
+  transition: transform .25s ease;
+}
+
+.projects-toggle[aria-expanded="true"] .projects-toggle-icon {
+  transform: rotate(45deg);
+}
+
+@media (min-width: 900px) {
+  .project-grid.is-collapsed {
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  }
+
+  .project-grid.is-collapsed .project-card:not(.project-extra) {
+    grid-column: span 2;
+  }
+
+  .project-grid.is-collapsed .project-card:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .project-grid.is-collapsed .project-card:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+}
+
+/* Client title: Trusted carries the weight; supporting list stays calmer. */
+.client-section .section-heading h2 {
+  font-size: clamp(2.35rem, 4.15vw, 5.25rem) !important;
+  color: var(--cac-red) !important;
+}
+
+.client-section .section-heading h2 .title-accent-blue {
+  color: var(--cac-blue) !important;
+  font-size: 1.08em;
+}
+
+/* Other long cards use a calmer readable scale. */
+#projects .section-heading h2,
+.service-area .section-heading h2,
+.careers h2 {
+  font-size: clamp(2.35rem, 4vw, 5rem) !important;
+}
+
+@media (max-width: 760px) {
+  #services .section-heading {
+    padding: 28px 24px !important;
+  }
+
+  #services .section-heading h2 {
+    max-width: 15ch !important;
+    font-size: clamp(2.35rem, 12vw, 3.8rem) !important;
+  }
+
+  .delivery-summary {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 12px;
+  }
+
+  .delivery-summary .delivery-label {
+    font-size: 2.3rem !important;
+  }
+
+  .delivery-summary h3 {
+    font-size: 1.45rem !important;
+  }
+
+  .delivery-toggle {
+    width: 42px;
+    height: 42px;
+  }
+
+  .capability-strip.capability-tabs {
+    grid-template-columns: 1fr !important;
+  }
+
+  .capability-tab {
+    width: 100%;
+    border-radius: 16px;
+  }
+
+  .project-grid.is-collapsed,
+  .project-grid.is-expanded {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .project-grid.is-collapsed .project-card,
+  .project-grid.is-expanded .project-card {
+    grid-column: auto !important;
+  }
+}
