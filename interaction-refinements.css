@@ -1,0 +1,257 @@
+/* Final interaction refinements requested after the scroll-motion pass. */
+
+:root {
+  --cac-red: #AF0404;
+  --cac-blue: #283080;
+  --cac-sage: #AAAE8E;
+  --cac-light-gray: #E0E0E0;
+  --cac-ink: #151821;
+}
+
+/* SERVICES INTRO
+   Keep the two bold keywords on clean, intentional single lines. */
+#services .section-heading {
+  width: 100% !important;
+  padding: clamp(28px, 2.8vw, 42px) !important;
+}
+
+#services .section-heading h2 {
+  max-width: none !important;
+  width: 100% !important;
+  font-size: clamp(2.05rem, 2.55vw, 3.5rem) !important;
+  line-height: 1.04 !important;
+  overflow-wrap: normal !important;
+  word-break: keep-all !important;
+  hyphens: none !important;
+  text-wrap: pretty;
+}
+
+#services .section-heading h2 .title-accent {
+  display: block !important;
+  width: max-content;
+  max-width: 100%;
+  white-space: nowrap !important;
+  font-size: clamp(2.65rem, 3.35vw, 4.35rem) !important;
+  line-height: .98 !important;
+  letter-spacing: .005em !important;
+}
+
+#services .section-heading h2 .title-accent-red {
+  color: #ffffff !important;
+}
+
+#services .section-heading h2 .title-accent-blue {
+  color: var(--cac-light-gray) !important;
+}
+
+#services .section-heading p:not(.eyebrow) {
+  max-width: 31rem !important;
+}
+
+@media (min-width: 1100px) {
+  #services.split {
+    grid-template-columns: minmax(440px, .86fr) minmax(0, 1.75fr) !important;
+  }
+}
+
+/* FLEXIBLE DELIVERY
+   Desktop: reveal the full DB / PS description from hover or keyboard focus.
+   Mobile: descriptions open and close as each card travels through the viewport. */
+.delivery-toggle {
+  display: none !important;
+}
+
+.delivery-details {
+  display: grid !important;
+  grid-template-rows: 0fr;
+  max-height: none !important;
+  margin-top: 0 !important;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    grid-template-rows .48s cubic-bezier(.2,.78,.2,1),
+    opacity .28s ease,
+    margin-top .42s cubic-bezier(.2,.78,.2,1);
+}
+
+.delivery-details > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.delivery-card.is-expanded .delivery-details {
+  grid-template-rows: 1fr;
+  max-height: none !important;
+  margin-top: 22px !important;
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 761px) {
+  .delivery-card {
+    cursor: default;
+  }
+
+  .delivery-card:hover .delivery-details,
+  .delivery-card:focus-within .delivery-details {
+    grid-template-rows: 1fr;
+    margin-top: 22px !important;
+    opacity: 1;
+  }
+
+  .delivery-card:hover,
+  .delivery-card:focus-within {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 34px 90px rgba(17,22,66,.20) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .delivery-card {
+    min-height: 0 !important;
+  }
+
+  /* Safe fallback: content remains readable when scroll timelines are unsupported. */
+  .delivery-details {
+    grid-template-rows: 1fr;
+    margin-top: 18px !important;
+    opacity: 1;
+  }
+
+  @supports (animation-timeline: view()) {
+    .delivery-details {
+      grid-template-rows: 0fr;
+      margin-top: 0 !important;
+      opacity: 0;
+      animation: deliveryScrollReveal linear both;
+      animation-timeline: view(block);
+      animation-range: entry 0% exit 100%;
+    }
+
+    @keyframes deliveryScrollReveal {
+      0%, 12% {
+        grid-template-rows: 0fr;
+        margin-top: 0;
+        opacity: 0;
+      }
+      34%, 72% {
+        grid-template-rows: 1fr;
+        margin-top: 18px;
+        opacity: 1;
+      }
+      94%, 100% {
+        grid-template-rows: 0fr;
+        margin-top: 0;
+        opacity: 0;
+      }
+    }
+  }
+}
+
+/* MAJOR / KEY TEXT HOVER COLOR MOTION
+   Applied only on devices that truly have hover, avoiding noisy mobile states. */
+@media (hover: hover) and (pointer: fine) {
+  :is(h1, h2, h3, .eyebrow, .delivery-label, .card-index, .project-tag, .hero-stats dt, .capability-tab) {
+    transition:
+      color .34s cubic-bezier(.2,.75,.2,1),
+      text-shadow .34s ease,
+      letter-spacing .34s ease,
+      transform .34s cubic-bezier(.2,.75,.2,1);
+  }
+
+  .title-accent {
+    display: inline-block;
+    transition:
+      color .34s cubic-bezier(.2,.75,.2,1),
+      text-shadow .34s ease,
+      transform .34s cubic-bezier(.2,.75,.2,1);
+  }
+
+  .hero-copy:hover .title-accent-blue,
+  .section-heading:hover .title-accent-blue,
+  .story-card:hover .title-accent-blue {
+    color: var(--cac-red) !important;
+    transform: translateY(-2px);
+    text-shadow: 0 12px 30px rgba(175,4,4,.22);
+  }
+
+  .hero-copy:hover .title-accent-red,
+  .section-heading:hover .title-accent-red,
+  .story-card:hover .title-accent-red,
+  .career-copy:hover .title-accent-red,
+  .contact-card:hover .title-accent-red {
+    color: var(--cac-blue) !important;
+    transform: translateY(-2px);
+    text-shadow: 0 12px 30px rgba(40,48,128,.22);
+  }
+
+  .section-heading:hover .title-accent-sage,
+  .hero-copy:hover .title-accent-sage,
+  .career-copy:hover .title-accent-sage {
+    color: var(--cac-red) !important;
+    transform: translateY(-2px) scale(1.015);
+  }
+
+  .sure-group:hover .title-accent-teal {
+    color: var(--cac-red) !important;
+    transform: translateY(-2px);
+  }
+
+  .service-card:nth-child(odd):hover h3,
+  .project-card:nth-child(odd):hover h3,
+  .delivery-card:first-child:hover h3,
+  .delivery-card:first-child:hover .delivery-label {
+    color: var(--cac-red) !important;
+    letter-spacing: .045em;
+    text-shadow: 0 10px 26px rgba(175,4,4,.16);
+  }
+
+  .service-card:nth-child(even):hover h3,
+  .project-card:nth-child(even):hover h3,
+  .delivery-card:nth-child(2):hover h3,
+  .delivery-card:nth-child(2):hover .delivery-label {
+    color: var(--cac-blue) !important;
+    letter-spacing: .045em;
+    text-shadow: 0 10px 26px rgba(40,48,128,.16);
+  }
+
+  .service-card:hover .card-index,
+  .project-card:hover .project-tag,
+  .section-heading:hover .eyebrow,
+  .story-card:hover .eyebrow,
+  .contact-card:hover .eyebrow {
+    color: var(--cac-sage) !important;
+    transform: translateY(-2px);
+  }
+
+  .hero-stats div:hover dt {
+    color: var(--cac-sage) !important;
+    transform: translateY(-2px) scale(1.04);
+  }
+
+  .capability-tab:hover,
+  .capability-tab.is-active {
+    color: #ffffff !important;
+    letter-spacing: .04em;
+  }
+
+  .nav-links a:not(.nav-cta):hover {
+    color: var(--cac-red) !important;
+    text-shadow: 0 8px 24px rgba(175,4,4,.18);
+  }
+}
+
+@media (max-width: 760px) {
+  #services .section-heading h2 {
+    font-size: clamp(1.7rem, 7.8vw, 2.45rem) !important;
+  }
+
+  #services .section-heading h2 .title-accent {
+    font-size: clamp(2.35rem, 11.8vw, 3.65rem) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  #services .section-heading h2 .title-accent {
+    font-size: clamp(2.05rem, 10.7vw, 3.15rem) !important;
+  }
+}
