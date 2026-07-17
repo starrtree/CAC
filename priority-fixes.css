@@ -1,0 +1,231 @@
+/* Highest-priority live fixes requested from the latest desktop review. */
+
+:root {
+  --cac-red: #AF0404;
+  --cac-blue: #283080;
+  --cac-teal: #55C1CF;
+  --cac-light-gray: #E0E0E0;
+}
+
+/* --------------------------------------------------------------------------
+   MECHANICAL PARTNER CARD
+   Keep the coordinated-team card fully opaque while preserving its depth.
+   -------------------------------------------------------------------------- */
+body .site-shell .hero .hero-panel,
+body .site-shell .hero .hero-panel.reveal,
+body .site-shell .hero .hero-panel.reveal.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.99), rgba(247,248,252,.96)) !important;
+  border-color: rgba(255,255,255,.96) !important;
+  box-shadow: 0 34px 100px rgba(7,10,32,.24), inset 0 1px 0 rgba(255,255,255,1) !important;
+}
+
+@supports (animation-timeline: scroll()) {
+  body .site-shell .hero .hero-panel {
+    animation-name: none !important;
+    translate: none !important;
+    rotate: none !important;
+    scale: 1 !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   DB / PS CARDS
+   Hover previews the description. Clicking anywhere on either card uses the
+   existing accordion button and pins that individual card open until clicked again.
+   -------------------------------------------------------------------------- */
+body .site-shell .delivery-card.delivery-collapsible {
+  position: relative !important;
+  cursor: pointer !important;
+}
+
+body .site-shell .delivery-card.delivery-collapsible .delivery-toggle {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 20 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: inherit !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  opacity: 0 !important;
+  cursor: pointer !important;
+}
+
+body .site-shell .delivery-card.delivery-collapsible .delivery-toggle-icon {
+  display: none !important;
+}
+
+body .site-shell .delivery-card.delivery-collapsible.is-expanded .delivery-details {
+  grid-template-rows: 1fr !important;
+  max-height: 420px !important;
+  margin-top: 22px !important;
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+body .site-shell .delivery-card.delivery-collapsible.is-expanded {
+  align-self: start !important;
+  height: auto !important;
+  box-shadow: 0 34px 90px rgba(17,22,66,.20) !important;
+}
+
+/* --------------------------------------------------------------------------
+   MARKETS SERVED
+   Later responsive rules intentionally positioned the labels toward the tag ends.
+   These higher-specificity rules place the labels in the visual center of each tag.
+   -------------------------------------------------------------------------- */
+@media (min-width: 1100px) {
+  body .site-shell #markets.markets .market-grid span:nth-child(-n+5) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 18px 24px 18px 68px !important;
+    text-indent: 0 !important;
+  }
+
+  body .site-shell #markets.markets .market-grid span:nth-child(n+6) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 18px 68px 18px 24px !important;
+    text-indent: 0 !important;
+  }
+}
+
+@media (max-width: 1099px) {
+  body .site-shell #markets.markets .market-grid span:nth-child(odd) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 17px 24px 17px 64px !important;
+    text-indent: 0 !important;
+  }
+
+  body .site-shell #markets.markets .market-grid span:nth-child(even) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 17px 64px 17px 24px !important;
+    text-indent: 0 !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   CLIENT EXPERIENCE
+   Keep every roster position visible. When a binary logo was never committed,
+   replace the broken image with a clean text wordmark rather than a blank gap.
+   -------------------------------------------------------------------------- */
+body .site-shell .client-section .logo-cloud,
+body .site-shell .client-section .logo-cloud.reveal,
+body .site-shell .client-section .logo-cloud.reveal.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+body .site-shell .client-section .logo-cloud img,
+body .site-shell .client-section .logo-cloud img.reveal,
+body .site-shell .client-section .logo-cloud img.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: none !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+body .site-shell .client-section .logo-cloud img.is-missing {
+  content: attr(alt) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 76px !important;
+  height: 76px !important;
+  padding: 12px !important;
+  color: var(--cac-blue) !important;
+  font: 800 clamp(.72rem, .86vw, .94rem)/1.2 var(--body, "Inter", Arial, sans-serif) !important;
+  text-align: center !important;
+  white-space: normal !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   STORY
+   Full-width title first, founders portrait beneath it, then the long history copy.
+   -------------------------------------------------------------------------- */
+body .site-shell #story.story .story-card {
+  display: block !important;
+  width: 100% !important;
+  max-width: 1500px !important;
+  margin-inline: auto !important;
+  padding: clamp(30px, 5vw, 72px) !important;
+}
+
+body .site-shell #story.story .story-intro {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  width: 100% !important;
+  gap: clamp(24px, 3vw, 42px) !important;
+  align-items: start !important;
+}
+
+body .site-shell #story.story .story-intro > div:first-child {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+body .site-shell #story.story .story-intro h2 {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  font-size: clamp(3rem, 5.4vw, 6.6rem) !important;
+  line-height: .96 !important;
+  text-wrap: balance !important;
+}
+
+body .site-shell #story.story .founders-overlay {
+  width: min(100%, 760px) !important;
+  max-width: 760px !important;
+  margin: 0 auto !important;
+  background: linear-gradient(145deg, #ffffff, #f5f6fa) !important;
+}
+
+body .site-shell #story.story .story-copy {
+  width: 100% !important;
+  max-width: none !important;
+  margin-top: clamp(34px, 4vw, 58px) !important;
+  columns: 2 420px !important;
+  column-gap: clamp(34px, 5vw, 76px) !important;
+}
+
+body .site-shell #story.story .story-copy p {
+  break-inside: avoid-column !important;
+  margin-bottom: 1.35em !important;
+}
+
+body .site-shell #story.story .story-pills {
+  margin-top: clamp(26px, 3vw, 42px) !important;
+}
+
+@media (max-width: 760px) {
+  body .site-shell #story.story .story-intro h2 {
+    font-size: clamp(2.45rem, 11vw, 4.2rem) !important;
+  }
+
+  body .site-shell #story.story .story-copy {
+    columns: 1 !important;
+  }
+}
