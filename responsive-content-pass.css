@@ -1,0 +1,425 @@
+/* Final responsive/content pass: mobile fit, compact portfolio, softer story/careers cards. */
+
+:root {
+  --cac-red: #AF0404;
+  --cac-blue: #283080;
+  --cac-sage: #AAAE8E;
+  --cac-light-gray: #E0E0E0;
+  --cac-ink: #151821;
+}
+
+html,
+body,
+.site-shell {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+/* Display-face text should read centered, never right-biased. */
+h1,
+h2,
+h3,
+.display,
+.delivery-label,
+.hero-stats dt,
+.blueprint-content h2,
+.project-card h3,
+.service-card h3 {
+  text-align: center !important;
+}
+
+/* Story: soften the history container and remove the keyword legend. */
+body .site-shell #story.story {
+  padding-inline: clamp(20px, 5vw, 84px) !important;
+}
+
+body .site-shell #story.story .story-card {
+  width: min(100%, 1640px) !important;
+  max-width: 1640px !important;
+  margin-inline: auto !important;
+  border-radius: clamp(28px, 3vw, 44px) !important;
+  overflow: hidden !important;
+  padding: clamp(28px, 4.5vw, 70px) !important;
+}
+
+body .site-shell #story.story .story-copy {
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  padding: clamp(28px, 4vw, 58px) !important;
+  border-radius: clamp(24px, 2.6vw, 38px) !important;
+  background: linear-gradient(145deg, #AF0404 0%, #930303 100%) !important;
+  color: #fff !important;
+}
+
+body .site-shell #story.story .story-copy,
+body .site-shell #story.story .story-copy p,
+body .site-shell #story.story .story-copy strong,
+body .site-shell #story.story .story-copy a {
+  color: #fff !important;
+}
+
+body .site-shell #story.story .story-copy p {
+  line-height: 1.72 !important;
+}
+
+body .site-shell #story.story .story-pills {
+  display: none !important;
+}
+
+/* Careers gets the same rounded, inset treatment instead of a sharp full-bleed box. */
+body .site-shell #careers.careers {
+  width: calc(100% - clamp(32px, 7vw, 120px)) !important;
+  max-width: 1640px !important;
+  margin: clamp(30px, 5vw, 78px) auto !important;
+  padding: clamp(34px, 5vw, 72px) !important;
+  border-radius: clamp(28px, 3vw, 44px) !important;
+  overflow: hidden !important;
+  box-shadow: 0 30px 90px rgba(17,22,66,.16) !important;
+}
+
+/* Portfolio keeps the richer desktop cards. */
+@media (min-width: 761px) {
+  #projects .project-grid.is-collapsed .project-card:nth-child(n+6) {
+    display: none !important;
+  }
+
+  #projects .project-grid.is-expanded .project-card {
+    display: flex !important;
+  }
+}
+
+/* Mobile: align nav/logo, constrain hero cards, and turn projects into compact expandable tabs. */
+@media (max-width: 760px) {
+  .topbar {
+    padding: 7px 12px !important;
+    gap: 5px 10px !important;
+    font-size: .62rem !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+  }
+
+  .nav {
+    min-height: 76px !important;
+    height: auto !important;
+    padding: 8px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 14px !important;
+  }
+
+  .brand {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+  }
+
+  .brand img {
+    width: 72px !important;
+    height: 72px !important;
+    max-width: 72px !important;
+    object-fit: contain !important;
+  }
+
+  .nav-toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: center !important;
+    margin: 0 0 0 auto !important;
+    min-height: 42px !important;
+    padding: 10px 16px !important;
+    font-size: .84rem !important;
+  }
+
+  .nav-links {
+    top: 100% !important;
+  }
+
+  .section-pad {
+    padding-inline: 16px !important;
+  }
+
+  .hero {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 18px !important;
+    min-height: 0 !important;
+    padding-top: 28px !important;
+    padding-bottom: 42px !important;
+    overflow: hidden !important;
+  }
+
+  .hero-copy,
+  .hero-copy.glass-panel,
+  .hero-panel,
+  .hero-panel.reveal,
+  .hero-panel.reveal.is-visible {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    transform: none !important;
+    translate: none !important;
+    scale: 1 !important;
+  }
+
+  .hero-copy.glass-panel {
+    padding: 22px 18px !important;
+    border-radius: 24px !important;
+  }
+
+  .hero .eyebrow {
+    margin-bottom: 14px !important;
+    font-size: .62rem !important;
+    letter-spacing: .11em !important;
+    text-align: center !important;
+  }
+
+  .hero h1 {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 18px !important;
+    font-size: clamp(2.25rem, 11.6vw, 3.35rem) !important;
+    line-height: .96 !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    hyphens: none !important;
+    text-wrap: balance !important;
+  }
+
+  .hero-lead {
+    width: 100% !important;
+    max-width: 32rem !important;
+    margin: 0 auto !important;
+    font-size: .95rem !important;
+    line-height: 1.55 !important;
+    text-align: center !important;
+  }
+
+  .hero-actions {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    margin: 22px 0 24px !important;
+  }
+
+  .hero-actions .button {
+    min-width: 0 !important;
+    min-height: 46px !important;
+    padding-inline: 12px !important;
+    font-size: .78rem !important;
+  }
+
+  .hero-stats {
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+  }
+
+  .hero-stats div {
+    min-width: 0 !important;
+    padding: 12px 6px !important;
+    border-radius: 14px !important;
+  }
+
+  .hero-stats dt {
+    font-size: 1.15rem !important;
+  }
+
+  .hero-stats dd {
+    font-size: .62rem !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+  }
+
+  body .site-shell .hero .hero-panel {
+    padding: 10px !important;
+    border-radius: 24px !important;
+  }
+
+  .hero-panel .panel-header {
+    justify-content: center !important;
+    padding: 8px 6px 12px !important;
+    font-size: .72rem !important;
+    text-align: center !important;
+  }
+
+  .hero-panel .blueprint-card {
+    min-height: 270px !important;
+    border-radius: 20px !important;
+  }
+
+  .hero-panel .blueprint-content {
+    inset: auto 18px 18px !important;
+    text-align: center !important;
+  }
+
+  .hero-panel .blueprint-content h2 {
+    max-width: 100% !important;
+    margin: 0 0 12px !important;
+    font-size: clamp(1.85rem, 9.5vw, 2.7rem) !important;
+    line-height: .98 !important;
+  }
+
+  .hero-panel .blueprint-content p {
+    margin: 0 !important;
+    font-size: .82rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .hero-panel .mini-label {
+    margin-bottom: 10px !important;
+    font-size: .6rem !important;
+  }
+
+  .capability-strip.capability-tabs,
+  .capability-strip {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+  }
+
+  .capability-tab,
+  .capability-strip span {
+    min-width: 0 !important;
+    min-height: 42px !important;
+    padding: 9px 6px !important;
+    font-size: .64rem !important;
+  }
+
+  /* Story spacing on narrow screens. */
+  body .site-shell #story.story {
+    padding-inline: 14px !important;
+  }
+
+  body .site-shell #story.story .story-card {
+    border-radius: 26px !important;
+    padding: 20px !important;
+  }
+
+  body .site-shell #story.story .story-copy {
+    columns: 1 !important;
+    padding: 24px 20px !important;
+    border-radius: 22px !important;
+  }
+
+  body .site-shell #careers.careers {
+    width: calc(100% - 28px) !important;
+    margin: 34px auto !important;
+    padding: 28px 22px !important;
+    border-radius: 26px !important;
+  }
+
+  /* Project list: three compact tabs first, then reveal the rest. */
+  #projects .project-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  #projects .project-grid.is-collapsed .project-card:nth-child(n+4) {
+    display: none !important;
+  }
+
+  #projects .project-grid.is-expanded .project-card {
+    display: grid !important;
+  }
+
+  #projects .project-card {
+    width: 100% !important;
+    min-height: 104px !important;
+    max-height: none !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: 118px minmax(0, 1fr) !important;
+    grid-template-rows: auto !important;
+    align-items: stretch !important;
+    gap: 0 !important;
+    overflow: hidden !important;
+    border-radius: 18px !important;
+    cursor: pointer !important;
+    transform: none !important;
+    box-shadow: 0 16px 44px rgba(17,22,66,.12) !important;
+  }
+
+  #projects .project-card .project-media {
+    grid-column: 1 !important;
+    grid-row: 1 / span 3 !important;
+    width: 118px !important;
+    height: 104px !important;
+    min-height: 104px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+  }
+
+  #projects .project-card .project-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  #projects .project-card h3 {
+    grid-column: 2 !important;
+    margin: 0 !important;
+    padding: 18px 16px !important;
+    align-self: center !important;
+    font-size: clamp(1.05rem, 5vw, 1.45rem) !important;
+    line-height: 1.08 !important;
+    text-align: left !important;
+  }
+
+  #projects .project-card .project-tag,
+  #projects .project-card p {
+    display: none !important;
+  }
+
+  #projects .project-card.is-mobile-open {
+    grid-template-columns: minmax(0, 1fr) !important;
+    border-radius: 22px !important;
+  }
+
+  #projects .project-card.is-mobile-open .project-media {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 16 / 9 !important;
+  }
+
+  #projects .project-card.is-mobile-open h3 {
+    grid-column: 1 !important;
+    padding: 18px 18px 8px !important;
+    text-align: center !important;
+  }
+
+  #projects .project-card.is-mobile-open .project-tag {
+    display: inline-flex !important;
+    width: fit-content !important;
+    margin: 4px auto 0 !important;
+  }
+
+  #projects .project-card.is-mobile-open p {
+    display: block !important;
+    margin: 0 !important;
+    padding: 12px 18px 20px !important;
+    color: var(--cac-ink) !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+  }
+
+  #projects .projects-toggle-wrap {
+    margin-top: 18px !important;
+  }
+
+  #projects .projects-toggle {
+    min-width: 0 !important;
+    width: min(100%, 320px) !important;
+    margin-inline: auto !important;
+  }
+}
