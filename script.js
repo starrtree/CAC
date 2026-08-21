@@ -450,3 +450,126 @@ if (contactForm) {
     }
   });
 }
+
+/* --------------------------------------------------------------------------
+   Final responsive/content pass
+   -------------------------------------------------------------------------- */
+const setupConciseContent = () => {
+  const setText = (selector, text) => {
+    const element = document.querySelector(selector);
+    if (element) element.textContent = text;
+    return element;
+  };
+
+  setText('.hero-lead', 'Commercial HVAC and mechanical systems from engineering through service.');
+  setText('.hero-panel .panel-header span:last-child', 'One mechanical team');
+  setText('.hero-panel .blueprint-content h2', 'Design. Build. Service.');
+  setText('.hero-panel .blueprint-content p', 'Engineering, BIM coordination, field execution, and lifecycle support.');
+
+  const trustItems = document.querySelectorAll('.trust-band p');
+  if (trustItems[0]) trustItems[0].textContent = 'Design-Build + Plan & Spec';
+  if (trustItems[1]) trustItems[1].textContent = 'Service + Maintenance';
+  if (trustItems[2]) trustItems[2].textContent = 'Established 1938';
+
+  setText('#capabilities .section-heading h2', 'One mechanical partner. Every phase.');
+  setText('#capabilities .section-heading p:not(.eyebrow)', 'One accountable team from concept through lifecycle support.');
+
+  setText('.delivery-section .section-heading h2', 'Design-Build or Plan & Spec.');
+  setText('#services .section-heading h2', 'Commercial mechanical expertise.');
+  setText('#services .section-heading p:not(.eyebrow)', 'HVAC, controls, piping, service, and specialty environments.');
+
+  setText('#markets .section-heading h2', 'Versatile across critical environments.');
+  setText('#markets .section-heading p:not(.eyebrow)', 'Experience across commercial, healthcare, industrial, and specialty facilities.');
+
+  setText('#projects .section-heading h2', 'Projects across the region.');
+  setText('#projects .section-heading p:not(.eyebrow)', 'Selected work across Greater Cincinnati and nearby markets.');
+
+  setText('#careers .career-copy p', 'Join a team that builds and maintains critical mechanical systems.');
+  setText('#contact .contact-card > div > p:not(.eyebrow)', 'Tell us what you’re planning. We’ll route it to the right team.');
+
+  document.querySelectorAll('h1, h2').forEach((heading) => {
+    heading.removeAttribute('data-title-accented');
+  });
+  highlightTitleWords();
+};
+
+const setupHomeBrandLink = () => {
+  const brand = document.querySelector('.brand');
+  if (!brand || brand.dataset.homeReady === 'true') return;
+
+  brand.dataset.homeReady = 'true';
+  brand.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (navLinks) navLinks.classList.remove('open');
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = 'Menu';
+    }
+  });
+};
+
+const setupMobileProjectTabs = () => {
+  const grid = document.querySelector('.project-grid');
+  if (!grid || grid.dataset.mobileTabsReady === 'true') return;
+
+  const cards = Array.from(grid.querySelectorAll('.project-card'));
+  const button = document.querySelector('.projects-toggle');
+  const label = button?.querySelector('.projects-toggle-label');
+  const mobileQuery = window.matchMedia('(max-width: 760px)');
+
+  const toggleCard = (card) => {
+    if (!mobileQuery.matches) return;
+    const willOpen = !card.classList.contains('is-mobile-open');
+    card.classList.toggle('is-mobile-open', willOpen);
+    card.setAttribute('aria-expanded', String(willOpen));
+  };
+
+  cards.forEach((card) => {
+    card.tabIndex = 0;
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-expanded', 'false');
+
+    card.addEventListener('click', (event) => {
+      if (event.target.closest('a, button')) return;
+      toggleCard(card);
+    });
+
+    card.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      toggleCard(card);
+    });
+  });
+
+  const syncLabel = () => {
+    if (!button || !label) return;
+    if (mobileQuery.matches) {
+      label.textContent = grid.classList.contains('is-expanded') ? 'Show fewer projects' : 'View more projects';
+    }
+  };
+
+  if (button) {
+    button.addEventListener('click', () => window.requestAnimationFrame(syncLabel));
+  }
+
+  const handleViewportChange = () => {
+    if (!mobileQuery.matches) {
+      cards.forEach((card) => {
+        card.classList.remove('is-mobile-open');
+        card.setAttribute('aria-expanded', 'false');
+      });
+    }
+    syncLabel();
+  };
+
+  if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', handleViewportChange);
+  else mobileQuery.addListener(handleViewportChange);
+
+  grid.dataset.mobileTabsReady = 'true';
+  handleViewportChange();
+};
+
+setupConciseContent();
+setupHomeBrandLink();
+setupMobileProjectTabs();
